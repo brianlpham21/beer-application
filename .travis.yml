@@ -1,0 +1,9 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: XLy/9UtiDRKUV7iX2/LqAFeYzGLRIvfkB2oMNFWnjVMffN5y/LEPmVdfrI5dA2G1KDf74pJ+AiAIFr5ruNjUhpZZ/tGZJzH84+JfAm5URxsiSGl6W16vYOUESoXBc9aN+bIViR8rI7j09hcSlM3RO671AhcDUkWOzBFqRVFPmXlDJvL0UXAreJ/fM7BprWt+o2tGZJLut1SwEFNpi1HIcueEHrUrGndoE9rIQ4RETJp9bg7Hz76lTVag34kfJq4hMWrRz2MH5F0eHOUEAIUZiAKQZHw5MvH1mfTxlJ7kR1VJYfuGcqZ4hxgP6Im2EVqr0JnRluUomJoHoV+BvTHABsX9A3yCarTWmKvirITg1R1bq0fgJ56UyW0Nk2DtkPdk9g16AxUBTjpiJ8aUdVqrISmIh+XGSKcMKuFOIDYvJVMFLUM5DsMnGXqWzuhkep5L9+SxO/I/P/JGyywG1lBNiMiM/Jouvheeb4VSrGw/LVmOBPBO36K1HGhhZl0v+fut2S3sbBHLY+deAx7dh0Aibr3naKnmhMTK7mSnFp59kNJE2vfIDN3hu8n6Wf8k8sqWmuJvKP1dFyoErK/ckNC3LHWTGJxVUvJO9KATzW/95i+C6XJdSj/NV9ao4S9P36d8jfazKrElB+QbbnC9ZUEUZQ+F9r7bvZwGvFQ+3SvWwVQ=
+  app: hidden-beyond-82618
+  on:
+    repo: brianlpham21/beer-application
