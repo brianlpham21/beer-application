@@ -1,0 +1,9 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: rtD7oI8VXlczcT+gVD5DmsukgbMGG7qmqLyMcGr2iLOyTiteVvMRfygCYS9RXPq2QHFzDR0UM239aUScfR4kgqu+KUiSu24H2mLUQs/6stkjxYgXVE37/fWawOpcIVBTxCPoINZfS159QR8aFPSz80tyQlRqQ5EgPnvHeibKSvXkBokvO3PbGbLl0zod02lormU7X6ScSPj2lzadA3+9UzqOwpu70xDcxr63BCbIOuIvsOHUdtRND9gREgq5ToVpQeJrJQdX7+ETdeeHkxCE68Qpi2M8RQd6T0xOnJb34lFO9k7cro3NEAsUBKgvZeOnCSZqTxyIjU5fMzG/mRdPoKniYoL7gYU+yvti0nmxKktsfBbFc2C32MNPeGxf55NwJY0e+p6El7rBGyhCGVPyO1QHlG95nAxLvkx2nWv69sntsPbbf/QJ629BsWvuN+WSQYZ/kG5CqErl13+lZcRHNEGu/+ajgca1QZZHGr/eQIWcMnPy1Fb1DWmDITxq3pxnSBe0vTqTT4Tzgt+3aAnDJtGjgLTn+NHWX6sCVIwNH2cZOVu+PM8sHLTmexpSWSVP9CySdhT2vUHYx6yB/EFEuFD739Zp90moMh/pCF3OQq4V2BlLsDyrFyLJBQL3hR0e+I07qIjJ68O/oLcjokSGxklcGYhAhOHdyk0hHfkwSH8=
+  app: stark-woodland-22950
+  on:
+    repo: brianlpham21/beer-application
