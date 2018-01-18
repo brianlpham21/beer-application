@@ -27,9 +27,13 @@ function seedBeerData() {
 
 function generateNewBeerData() {
   return {
-    beerName: faker.lorem.words(),
-    beerType: faker.lorem.words(),
-    breweryName: faker.lorem.words()
+    beerName: faker.random.word(),
+    beerType: faker.system.mimeType(),
+    breweryName: faker.company.companyName(),
+    breweryLocation: {
+      city: faker.address.city(),
+      state: faker.address.state()
+    }
   };
 };
 
@@ -111,12 +115,39 @@ describe('Beer API Resource', function() {
     });
   });
 
+  describe('POST Endpoint', function() {
+    it('should add a new beer', function() {
+      const newBeer = generateNewBeerData();
+
+      return chai.request(app)
+        .post('/beers')
+        .send(newBeer)
+        .then(function(res) {
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            'id', 'beerName', 'beerType', 'breweryName', 'breweryLocation');
+          expect(res.body.id).to.not.be.null;
+          expect(res.body.beerName).to.equal(newBeer.beerName);
+          expect(res.body.beerType).to.equal(newBeer.beerType);
+          expect(res.body.breweryName).to.equal(newBeer.breweryName);
+          expect(res.body.breweryLocation).to.contain(newBeer.breweryLocation.city);
+          expect(res.body.breweryLocation).to.contain(newBeer.breweryLocation.state);
+        })
+    });
+  });
+
   describe('PUT Endpoint', function() {
     it('should update fields for a beer', function() {
       const updateData = {
         beerName: "New Updated Beer Name",
         beerType: "New Updated Beer Type",
-        breweryName: "New Updated Brewery Name"
+        breweryName: "New Updated Brewery Name",
+        breweryLocation: {
+          city: "New Updated Brewery City",
+          state: "New Updated Brewery State"
+        }
       };
 
       return Beer
@@ -135,6 +166,8 @@ describe('Beer API Resource', function() {
           expect(beer.beerName).to.equal(updateData.beerName);
           expect(beer.beerType).to.equal(updateData.beerType);
           expect(beer.breweryName).to.equal(updateData.breweryName);
+          expect(beer.breweryLocation.city).to.equal(updateData.breweryLocation.city);
+          expect(beer.breweryLocation.state).to.equal(updateData.breweryLocation.state);
         });
     });
   });

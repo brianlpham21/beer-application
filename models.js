@@ -7,11 +7,8 @@ const beerSchema = mongoose.Schema({
   beerType: {type: String, required: true},
   breweryName: {type: String, required: true},
   breweryLocation: {
-    building: String,
-    street: String,
-    city: String,
-    state: String,
-    zipcode: String
+    city: {type: String, required: true},
+    state: {type: String, required: true}
   },
   beerABV: Number,
   beerIBU: Number,
@@ -20,7 +17,7 @@ const beerSchema = mongoose.Schema({
 });
 
 beerSchema.virtual('breweryAddress').get(function() {
-  return `${this.breweryLocation.building} ${this.breweryLocation.street}, ${this.breweryLocation.city}, ${this.breweryLocation.state} ${this.breweryLocation.zipcode}`.trim()
+  return `${this.breweryLocation.city}, ${this.breweryLocation.state}`.trim()
 });
 
 beerSchema.methods.serialize = function() {
