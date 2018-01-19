@@ -1,16 +1,24 @@
 const DATABASE = 'https://stark-woodland-22950.herokuapp.com/beers';
 
-function getAllBeer(callback) {
-  $.getJSON(DATABASE, callback);
+$('.search').on('submit', function(event) {
+  event.preventDefault();
+
+  const queryTarget = $(event.currentTarget).find('input');
+  const queryTerm = (queryTarget.val());
+
+  retrieveJSON(queryTerm, displayBeerInformation);
+
+  queryTarget.val("");
+});
+
+function retrieveJSON(searchTerm, callback) {
+  $.getJSON(DATABASE + `/${searchTerm}`, callback);
 }
 
 function displayBeerInformation(data) {
   console.log(data);
   for(index in data.beers) {
-    if(data.beers[index].beerName === "Sculpin") {
-      console.log('yes!');
-    };
-    $('body').append(
+    $('.selections').append(
       `
       <div>
         <h2>${data.beers[index].beerName}</h2>
@@ -22,21 +30,7 @@ function displayBeerInformation(data) {
   }
 }
 
-function getAndDisplayBeerInformation(searchTerm) {
-  getAllBeer(displayBeerInformation);
-}
-
-$('.search').on('submit', function(event) {
-  event.preventDefault();
-
-  const queryTarget = $(event.currentTarget).find('input');
-  const queryTerm = (queryTarget.val());
-  console.log(queryTerm);
-
-  getAndDisplayBeerInformation();
-
-  queryTarget.val("");
-});
+// $(getAndDisplayBeerInformation);
 
 $('.add-beer-form').on('submit', function(event) {
   event.preventDefault();
@@ -62,7 +56,6 @@ $('.add-beer-form').on('submit', function(event) {
       "state": queryTermBreweryState
     }
   };
-  console.log(objectPost);
 
   $.ajax({
     type: "POST",
@@ -74,8 +67,6 @@ $('.add-beer-form').on('submit', function(event) {
     dataType: "json",
     contentType: "application/json"
   });
-
-  // $.post(DATABASE, JSON.stringify(objectPost), function(e) {console.log(e);}, "json");
 
   queryTargetBeerName.val("");
   queryTargetBeerType.val("");

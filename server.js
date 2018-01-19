@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 app.get('/beers', (req, res) => {
   Beer
     .find()
-    .limit(10)
+    .limit(5)
     .then(beers => {
       res.json({
         beers: beers.map(
@@ -45,7 +45,17 @@ app.get('/beers', (req, res) => {
     });
 });
 
-// this GET endpoint will return a selected beer when the ID is given by the user
+// this GET endpoint will return a selected beer when the beer name or ID is given by the user
+
+app.get('/beers/:beerName', (req, res) => {
+  Beer
+    .findOne({'beerName': req.params.beerName})
+    .then(beer => res.json(beer.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Interal server error'});
+    });
+});
 
 app.get('/beers/:id', (req, res) => {
   Beer
