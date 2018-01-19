@@ -16,18 +16,15 @@ function retrieveJSON(searchTerm, callback) {
 }
 
 function displayBeerInformation(data) {
-  console.log(data);
-  for(index in data.beers) {
-    $('.selections').append(
-      `
-      <div>
-        <h2>${data.beers[index].beerName}</h2>
-        <p>${data.beers[index].beerType}</p>
-        <p>${data.beers[index].breweryName} - ${data.beers[index].breweryLocation}</p>
-      </div>
-      `
-    );
-  }
+  $('.selections').html(
+    `
+    <div>
+      <h2>${data.beerName}</h2>
+      <p>${data.beerType}</p>
+      <p>${data.breweryName} - ${data.breweryLocation}</p>
+    </div>
+    `
+  )
 }
 
 // $(getAndDisplayBeerInformation);
