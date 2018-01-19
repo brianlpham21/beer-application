@@ -155,7 +155,7 @@ describe('Beer API Resource', function() {
         .then(function(beer) {
           updateData.id = beer.id;
           return chai.request(app)
-            .put(`/beer/${updateData.id}`)
+            .put(`/beers/${updateData.id}`)
             .send(updateData);
         })
         .then(function(res) {
