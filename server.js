@@ -14,6 +14,14 @@ app.use(express.static('public'));
 const {PORT, DATABASE_URL} = require('./config');
 const {Beer} = require('./models');
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 // the following are the endpoints that are accessed through the API.
 // these endpoints will return a given response depending on the operation
 // and the request
@@ -86,7 +94,7 @@ app.post('/beers', (req, res) => {
 // this PUT endpoint will update a beer selected using the ID
 // the selected beer will be updated with given information given in the request
 
-app.put('/beer/:id', (req, res) => {
+app.put('/beers/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
       `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`
@@ -96,7 +104,7 @@ app.put('/beer/:id', (req, res) => {
   };
 
   const toUpdate = {};
-  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation'];
+  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation', 'beerABV', 'beerIBU', 'beerAvailability', 'beerNotes'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];

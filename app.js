@@ -1,4 +1,7 @@
-var MOCK_BEER_INFO_DATA = {
+const DATABASE = 'https://stark-woodland-22950.herokuapp.com/beers';
+const DOG_API = 'https://dog.ceo/api/breeds/list/all';
+
+let MOCK_BEER_INFO_DATA = {
   "beerInformation": [
     {
       "beerName": "Sculpin",
@@ -50,13 +53,14 @@ var MOCK_BEER_INFO_DATA = {
 };
 
 function getAllBeer(callback) {
-  setTimeout(function(){callback(MOCK_BEER_INFO_DATA)}, 1000);
+  $.getJSON(DATABASE, callback);
 }
 
 function displayBeerInformation(data) {
-  for(index in data.beerInformation) {
+  console.log(data);
+  for(index in data.beers) {
     $('body').append(
-      '<p>' + data.beerInformation[index].beerName + '</p>'
+      '<p>' + index + '</p>'
     );
   }
 }
