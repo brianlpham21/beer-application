@@ -28,18 +28,10 @@ app.use(function(req, res, next) {
 
 // this GET endpoint will return a certain number of beers in the database
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
-
 app.get('/beers', (req, res) => {
   Beer
     .find()
-    .limit(5)
+    .limit(10)
     .then(beers => {
       res.json({
         beers: beers.map(
