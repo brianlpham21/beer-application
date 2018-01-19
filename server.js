@@ -20,6 +20,14 @@ const {Beer} = require('./models');
 
 // this GET endpoint will return a certain number of beers in the database
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 app.get('/beers', (req, res) => {
   Beer
     .find()
@@ -96,7 +104,7 @@ app.put('/beer/:id', (req, res) => {
   };
 
   const toUpdate = {};
-  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation'];
+  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation', 'beerABV', 'beerIBU', 'beerAvailability', 'beerNotes'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
