@@ -1,5 +1,27 @@
 const DATABASE = 'https://stark-woodland-22950.herokuapp.com/beers';
 
+// retrieves beer information for home page
+
+function retrieveMainPageBeer(callback) {
+  $.getJSON(DATABASE, callback)
+}
+
+function displayMainPageBeer(data) {
+  for (index in data.beers) {
+    $('.selections').append(
+      `<div>
+        <h2>${data.beers[index].beerName}</h2>
+        <p>${data.beers[index].beerType}</p>
+        <p>${data.beers[index].breweryName} - ${data.beers[index].breweryLocation}</p>
+      </div>`
+    )
+  }
+}
+
+$(retrieveMainPageBeer(displayMainPageBeer));
+
+// event listener for beer name find submit
+
 $('.search').on('submit', function(event) {
   event.preventDefault();
 
@@ -16,18 +38,18 @@ function retrieveJSON(searchTerm, callback) {
 }
 
 function displayBeerInformation(data) {
-  $('.selections').html(
-    `
-    <div>
+  $('.result').html(
+    `<div>
       <h2>${data.beerName}</h2>
       <p>${data.beerType}</p>
       <p>${data.breweryName} - ${data.breweryLocation}</p>
-    </div>
-    `
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>`
   )
 }
 
-// $(getAndDisplayBeerInformation);
+// event listener for adding beer submit
 
 $('.add-beer-form').on('submit', function(event) {
   event.preventDefault();
