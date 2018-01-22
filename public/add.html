@@ -7,11 +7,15 @@
   <body>
     <h1>Add Beer Form</h1>
     <form class="add-beer-form">
-      <input type="text" id="beer-name" placeholder="Beer Name"><br>
-      <input type="text" id="beer-type" placeholder="Beer Type"><br>
-      <input type="text" id="brewery-name" placeholder="Brewery Name"><br>
+      <input type="text" id="beer-name" placeholder="Beer Name" required><br>
+      <input type="text" id="beer-type" placeholder="Beer Type" required><br>
+      <input type="text" id="brewery-name" placeholder="Brewery Name" required required><br>
       <input type="text" id="brewery-city" placeholder="Brewery Location - City"><br>
-      <input type="text" id="brewery-state" placeholder="Brewery Location - State"><br>
+      <input type="text" id="brewery-state" placeholder="Brewery Location - State" required><br>
+      <input type="text" id="beer-abv" placeholder="Beer ABV"><br>
+      <input type="text" id="beer-ibu" placeholder="Beer IBU"><br>
+      <input type="text" id="beer-availability" placeholder="Beer Availability"><br>
+      <input type="text" id="beer-notes" placeholder="Beer Notes"><br>
       <button type="submit">Submit</button>
     </form>
 
