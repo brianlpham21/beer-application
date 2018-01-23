@@ -1,4 +1,4 @@
-const API_URL = 'https://stark-woodland-22950.herokuapp.com/beers';
+const API_URL = '/beers';
 
 // retrieves beer information for home page
 
@@ -34,7 +34,7 @@ $('.search').on('submit', function(event) {
 });
 
 function retrieveJSON(searchTerm, callback) {
-  $.getJSON(DATABASE + `/${searchTerm}`, callback);
+  $.getJSON(API_URL + `/${searchTerm}`, callback);
 }
 
 function displayBeerInformation(data) {
@@ -94,7 +94,7 @@ $('.add-beer-form').on('submit', function(event) {
 
   $.ajax({
     type: "POST",
-    url: DATABASE,
+    url: API_URL,
     data: JSON.stringify(objectPost),
     error: function(e) {
       console.log(e);
@@ -117,13 +117,13 @@ $('.add-beer-form').on('submit', function(event) {
 // event listener to delete beer item
 
 function retrieveJsonAndDelete(searchTerm, callback) {
-  $.getJSON(DATABASE + `/${searchTerm}`, callback);
+  $.getJSON(API_URL + `/${searchTerm}`, callback);
 }
 
 function deleteBeer(data) {
   $.ajax({
     type: "DELETE",
-    url: DATABASE + `/${data.id}`,
+    url: API_URL + `/${data.id}`,
   });
 }
 
