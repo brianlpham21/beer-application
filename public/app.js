@@ -34,7 +34,7 @@ $('.search').on('submit', function(event) {
 });
 
 function retrieveJSON(searchTerm, callback) {
-  $.getJSON(DATABASE + `/${searchTerm}`, callback);
+  $.getJSON(API_URL + `/${searchTerm}`, callback);
 }
 
 function displayBeerInformation(data) {
@@ -117,13 +117,13 @@ $('.add-beer-form').on('submit', function(event) {
 // event listener to delete beer item
 
 function retrieveJsonAndDelete(searchTerm, callback) {
-  $.getJSON(DATABASE + `/${searchTerm}`, callback);
+  $.getJSON(API_URL + `/${searchTerm}`, callback);
 }
 
 function deleteBeer(data) {
   $.ajax({
     type: "DELETE",
-    url: DATABASE + `/${data.id}`,
+    url: API_URL + `/${data.id}`,
   });
 }
 
