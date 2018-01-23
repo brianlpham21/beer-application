@@ -1,4 +1,4 @@
-const API_URL = 'https://stark-woodland-22950.herokuapp.com/beers';
+const API_URL = '/beers';
 
 // retrieves beer information for home page
 
@@ -94,7 +94,7 @@ $('.add-beer-form').on('submit', function(event) {
 
   $.ajax({
     type: "POST",
-    url: DATABASE,
+    url: API_URL,
     data: JSON.stringify(objectPost),
     error: function(e) {
       console.log(e);
