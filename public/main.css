@@ -23,6 +23,10 @@ main {
   top: 100px
 }
 
+#add-beer-container {
+  padding: 20px 0 0 0
+}
+
 #logo, form {
   display: inline-block;
   vertical-align: middle;
@@ -33,16 +37,44 @@ main {
   padding: 6px 10px 6px 20px;
 }
 
-.logo:hover {
+#logo:hover, #get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
   cursor: pointer;
 }
 
-form * {
+form *, #add-beer-button {
   border-radius: 5px;
   font-size: 22px;
   padding: 10px;
 }
 
 #add-beer-button {
+  float: right;
+  position: relative;
+  top: 15px
+}
 
+#get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
+ background-color: lightBlue;
+}
+
+#beers-container, #add-beer-container {
+  margin: auto;
+  max-width: 1100px;
+}
+
+.beer-selection-result {
+  display: inline-block;
+  width: 24%;
+  margin: 5px;
+  vertical-align: top
+}
+
+.beer-search-result, .edit-form {
+  padding: 20px 0 0 0;
+}
+
+.edit-button, .delete-button, .edit-form-submit, .edit-form-cancel {
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 8px;
 }

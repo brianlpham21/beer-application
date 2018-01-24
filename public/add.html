@@ -3,22 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Add a Beer Form</title>
+    <link href="main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Add Beer Form</h1>
-    <form class="add-form">
-      <input type="text" id="beer-name" placeholder="Beer Name" required><br>
-      <input type="text" id="beer-type" placeholder="Beer Type" required><br>
-      <input type="text" id="brewery-name" placeholder="Brewery Name" required><br>
-      <input type="text" id="brewery-city" placeholder="Brewery Location - City" required><br>
-      <input type="text" id="brewery-state" placeholder="Brewery Location - State" required><br>
-      <input type="text" id="beer-abv" placeholder="Beer ABV"><br>
-      <input type="text" id="beer-ibu" placeholder="Beer IBU"><br>
-      <input type="text" id="beer-availability" placeholder="Beer Availability"><br>
-      <textarea id="beer-notes" placeholder="Beer Notes"></textarea><br>
-      <button type="submit">Submit</button>
-      <button class='add-form-cancel'>Cancel</button>
-    </form>
+    <div id="add-beer-container">
+      <h1>Add Beer Form</h1>
+      <form class="add-form">
+        <input type="text" id="beer-name" placeholder="Beer Name" required><br>
+        <input type="text" id="beer-type" placeholder="Beer Type" required><br>
+        <input type="text" id="brewery-name" placeholder="Brewery Name" required><br>
+        <input type="text" id="brewery-city" placeholder="Brewery Location - City" required><br>
+        <input type="text" id="brewery-state" placeholder="Brewery Location - State" required><br>
+        <input type="text" id="beer-abv" placeholder="Beer ABV"><br>
+        <input type="text" id="beer-ibu" placeholder="Beer IBU"><br>
+        <input type="text" id="beer-availability" placeholder="Beer Availability"><br>
+        <textarea id="beer-notes" placeholder="Beer Notes"></textarea><br>
+        <button type="submit" class='add-form-submit'>Submit</button>
+        <button class='add-form-cancel'>Cancel</button>
+      </form>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./app.js"></script>

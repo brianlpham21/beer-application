@@ -15,7 +15,7 @@ function retrieveSelectIdJSON(beerId, callback) {
 function displayMainPageBeer(data) {
   for (index in data.beers) {
     $('.selections').append(
-      `<div>
+      `<div class="beer-selection-result">
         <h2>${data.beers[index].beerName}</h2>
         <p>${data.beers[index].beerType}</p>
         <p>${data.beers[index].breweryName} - ${data.beers[index].breweryLocation}</p>
@@ -34,7 +34,7 @@ function displaySearchedBeerInformation(data) {
   };
 
   $('.result').html(
-    `<div>
+    `<div class="beer-search-result">
       <h2 class='search-beer-name'>${allVariables[0]}</h2>
       <p class='search-beer-type'>${allVariables[1]}</p>
       <p><span class='search-brewery-name'>${allVariables[2]}</span> - <span class='search-brewery-location'>${allVariables[3]}</span></p>
@@ -241,6 +241,12 @@ function watchDeleteButtonClick() {
   });
 }
 
+function watchLogo() {
+  $('#logo').on('click', function() {
+    location.reload();
+  });
+}
+
 function addEventListeners() {
   watchSearchSubmit();
   watchAddFormSubmit();
@@ -249,6 +255,7 @@ function addEventListeners() {
   watchEditFormSubmit();
   watchEditFormCancel();
   watchDeleteButtonClick();
+  watchLogo();
 }
 
 $(addEventListeners);
