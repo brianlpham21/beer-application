@@ -81,10 +81,6 @@ describe('Beer API Resource', function() {
           expect(res).to.be.json;
           expect(res).to.be.a('object');
           expect(res.body.beers).to.have.length.of.at.least(1);
-          return Beer.count();
-        })
-        .then(function(count) {
-          expect(res.body.beers).to.have.length(count);
         });
     });
 
