@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 app.get('/beers', (req, res) => {
   Beer
     .find()
-    .limit(5)
+    .limit(4)
     .then(beers => {
       res.json({
         beers: beers.map(
