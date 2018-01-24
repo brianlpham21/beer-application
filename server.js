@@ -47,7 +47,7 @@ app.get('/beers', (req, res) => {
 
 // this GET endpoint will return a selected beer when the beer name or ID is given by the user
 
-app.get('/beers/beer/:beerName', (req, res) => {
+app.get('/beers/beername/:beerName', (req, res) => {
   Beer
     .findOne({'beerName': req.params.beerName})
     .then(beer => res.json(beer.serialize()))
