@@ -74,7 +74,7 @@ function watchAddFormSubmit() {
     const addBeerABVValue = $(event.currentTarget).find('#beer-abv').val();
     const addBeerIBUValue = $(event.currentTarget).find('#beer-ibu').val();
     const addBeerAvailabilityValue = $(event.currentTarget).find('#beer-availability').val();
-    const addBeerNoteValues = $(event.currentTarget).find('#beer-notes').val();
+    const addBeerNotesValue = $(event.currentTarget).find('#beer-notes').val();
 
     const objectPost = {
       "beerName": addBeerNameValue,
