@@ -16,9 +16,10 @@ function displayMainPageBeer(data) {
   for (index in data.beers) {
     $('.selections').append(
       `<div class="beer-selection-result">
-        <h2>${data.beers[index].beerName}</h2>
+        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
         <p>${data.beers[index].beerType}</p>
-        <p>${data.beers[index].breweryName} - ${data.beers[index].breweryLocation}</p>
+        <p>${data.beers[index].breweryName}</p>
+        <p>${data.beers[index].breweryLocation}</p>
       </div>`
     )
   }
@@ -71,6 +72,14 @@ function watchSearchSubmit() {
   });
 }
 
+function watchSelectionSelect() {
+  $('.beer-selection-result-name').on('click', function(event) {
+    const beerName = $(event.currentTarget).html();
+
+    retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
+  })
+}
+
 function watchAddFormSubmit() {
   $('.add-form').on('submit', function(event) {
     event.preventDefault();
@@ -111,16 +120,28 @@ function watchAddFormSubmit() {
       contentType: "application/json",
       success: function() {
         alert("Beer Added!");
-        document.location.href = '/'
+        document.location.href = `/#${addBeerNameValue}`;
       }
     });
 
   });
 }
 
+function watchAddedBeer() {
+  if (window.location.hash) {
+    displayAddedBeer(window.location.hash.substr(1));
+    history.pushState("", document.title, window.location.pathname);
+  }
+}
+
+function displayAddedBeer(beerName) {
+  retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
+}
+
 function watchAddFormCancel() {
   $('.add-form').on('click', '.add-form-cancel', function(event) {
     event.preventDefault();
+
     document.location.href = '/';
   });
 }
@@ -210,9 +231,14 @@ function watchEditFormSubmit() {
       contentType: "application/json"
     });
 
-    alert("Beer Updated!")
-    location.reload();
+    alert("Beer Updated!");
+
+    displayEditedBeer(editBeerNameValue);
   });
+}
+
+function displayEditedBeer(beerName) {
+  retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
 }
 
 function watchEditFormCancel() {
@@ -230,6 +256,7 @@ function watchDeleteButtonClick() {
     event.preventDefault();
 
     const deleteTargetBeerId = $('.search-beer-id').html();
+    const deleteTargetBeerName = $('.search-beer-name').html()
 
     $.ajax({
       type: "DELETE",
@@ -237,8 +264,13 @@ function watchDeleteButtonClick() {
     });
 
     alert("Beer Deleted!")
-    location.reload();
+
+    displayDeletedBeer(deleteTargetBeerName);
   });
+}
+
+function displayDeletedBeer(beerName) {
+  $('.result').html(`${beerName} has been deleted!`)
 }
 
 function watchLogo() {
@@ -249,8 +281,10 @@ function watchLogo() {
 
 function addEventListeners() {
   watchSearchSubmit();
+  watchSelectionSelect();
   watchAddFormSubmit();
   watchAddFormCancel();
+  watchAddedBeer();
   watchEditButtonClick();
   watchEditFormSubmit();
   watchEditFormCancel();

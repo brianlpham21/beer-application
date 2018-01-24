@@ -41,7 +41,7 @@ main {
   cursor: pointer;
 }
 
-form *, #add-beer-button {
+.search *, #add-beer-button {
   border-radius: 5px;
   font-size: 22px;
   padding: 10px;
@@ -66,15 +66,27 @@ form *, #add-beer-button {
   display: inline-block;
   width: 24%;
   margin: 5px;
-  vertical-align: top
+  vertical-align: middle
 }
 
 .beer-search-result, .edit-form {
   padding: 20px 0 0 0;
 }
 
-.edit-button, .delete-button, .edit-form-submit, .edit-form-cancel {
+.edit-button, .delete-button, .edit-form-submit, .edit-form-cancel, .add-form-submit, .add-form-cancel  {
   border-radius: 5px;
   font-size: 18px;
   padding: 8px;
+}
+
+.beer-selection-result-name:hover {
+  cursor: pointer;
+  color: purple;
+}
+
+form * {
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 4px;
+  margin: 3px 0 3px 0
 }
