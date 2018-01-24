@@ -1,9 +1,11 @@
 const API_URL = '/beers';
 
-// retrieves beer information for home page
-
-function retrieveMainPageBeer(callback) {
+function retrieveAllBeerJSON(callback) {
   $.getJSON(API_URL, callback)
+}
+
+function retrieveSelectBeerJSON(beerSearchName, callback) {
+  $.getJSON(API_URL + `/beer/${beerSearchName}`, callback);
 }
 
 function displayMainPageBeer(data) {
@@ -18,206 +20,246 @@ function displayMainPageBeer(data) {
   }
 }
 
-$(retrieveMainPageBeer(displayMainPageBeer));
+function displaySearchedBeerInformation(data) {
+  const allVariables = [data.beerName, data.beerType, data.breweryName, data.breweryLocation, data.beerABV, data.beerIBU, data.beerAvailability, data.beerNotes, data.id];
 
-// event listener for beer name find submit
+  for (index in allVariables) {
+    if (allVariables[index] === null || allVariables[index] === undefined) {
+      allVariables[index] = "";
+    };
+  };
 
-$('.search').on('submit', function(event) {
-  event.preventDefault();
-
-  const queryTarget = $(event.currentTarget).find('input');
-  const queryTerm = (queryTarget.val());
-
-  retrieveJSON(queryTerm, displayBeerInformation);
-
-  queryTarget.val("");
-});
-
-function retrieveJSON(searchTerm, callback) {
-  $.getJSON(API_URL + `/beer/${searchTerm}`, callback);
-}
-
-function displayBeerInformation(data) {
-  $('.result').append(
+  $('.result').html(
     `<div>
-      <h2 class='search-beer-name'>${data.beerName}</h2>
-      <p class='search-beer-type'>${data.beerType}</p>
-      <p><span class='search-brewery-name'>${data.breweryName}</span> - <span class='search-brewery-location'>${data.breweryLocation}</span></p>
-      <p>ABV: <span class='search-beer-abv'>${data.beerABV}</span></p>
-      <p>IBU: <span class='search-beer-ibu'>${data.beerIBU}</span></p>
-      <p>Availability: <span class='search-beer-availability'>${data.beerAvailability}</span></p>
-      <p>Notes: <span class='search-beer-notes'>${data.beerNotes}</span></p>
-      <p hidden>ID: <span class='search-beer-id'>${data.id}</span></p>
+      <h2 class='search-beer-name'>${allVariables[0]}</h2>
+      <p class='search-beer-type'>${allVariables[1]}</p>
+      <p><span class='search-brewery-name'>${allVariables[2]}</span> - <span class='search-brewery-location'>${allVariables[3]}</span></p>
+      <p>ABV: <span class='search-beer-abv'>${allVariables[4]}</span></p>
+      <p>IBU: <span class='search-beer-ibu'>${allVariables[5]}</span></p>
+      <p>Availability: <span class='search-beer-availability'>${allVariables[6]}</span></p>
+      <p>Notes: <span class='search-beer-notes'>${allVariables[7]}</span></p>
+      <p hidden>ID: <span class='search-beer-id'>${allVariables[8]}</span></p>
       <button class="edit-button">Edit</button>
       <button class="delete-button">Delete</button>
     </div>`
   )
 }
 
-// event listener for adding beer submit
+$(retrieveAllBeerJSON(displayMainPageBeer));
 
-$('.add-beer-form').on('submit', function(event) {
-  event.preventDefault();
+function watchSearchSubmit() {
+  $('.search').on('submit', function(event) {
+    event.preventDefault();
 
-  const queryTargetBeerName = $(event.currentTarget).find('#beer-name');
-  const queryTargetBeerType = $(event.currentTarget).find('#beer-type');
-  const queryTargetBreweryName = $(event.currentTarget).find('#brewery-name');
-  const queryTargetBreweryCity = $(event.currentTarget).find('#brewery-city');
-  const queryTargetBreweryState = $(event.currentTarget).find('#brewery-state');
-  const queryTargetBeerABV = $(event.currentTarget).find('#beer-abv');
-  const queryTargetBeerIBU = $(event.currentTarget).find('#beer-ibu');
-  const queryTargetBeerAvailability = $(event.currentTarget).find('#beer-availability');
-  const queryTargetBeerNotes = $(event.currentTarget).find('#beer-notes');
+    const searchTarget = $(event.currentTarget).find('input');
+    const searchTerm = (searchTarget.val());
 
-  const queryTermBeerName = (queryTargetBeerName.val());
-  const queryTermBeerType = (queryTargetBeerType.val());
-  const queryTermBreweryName = (queryTargetBreweryName.val());
-  const queryTermBreweryCity = (queryTargetBreweryCity.val());
-  const queryTermBreweryState = (queryTargetBreweryState.val());
-  const queryTermBeerABV = (queryTargetBeerABV.val());
-  const queryTermBeerIBU = (queryTargetBeerIBU.val());
-  const queryTermBeerAvailability = (queryTargetBeerAvailability.val());
-  const queryTermBeerNotes = (queryTargetBeerNotes.val());
+    const searchTermFinal = searchTerm.split(' ').map(word => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ');
 
-  const objectPost = {
-    "beerName": queryTermBeerName,
-    "beerType": queryTermBeerType,
-    "breweryName": queryTermBreweryName,
-    "breweryLocation": {
-      "city": queryTermBreweryCity,
-      "state": queryTermBreweryState
-    },
-    "beerABV": queryTermBeerABV,
-    "beerIBU": queryTermBeerIBU,
-    "beerAvailability": queryTermBeerAvailability,
-    "beerNotes": queryTermBeerNotes
-  };
+    retrieveSelectBeerJSON(searchTermFinal, displaySearchedBeerInformation);
 
-  $.ajax({
-    type: "POST",
-    url: API_URL,
-    data: JSON.stringify(objectPost),
-    error: function(e) {
-      console.log(e);
-    },
-    dataType: "json",
-    contentType: "application/json"
-  });
-
-  queryTargetBeerName.val("");
-  queryTargetBeerType.val("");
-  queryTargetBreweryName.val("");
-  queryTargetBreweryCity.val("");
-  queryTargetBreweryState.val("");
-  queryTargetBeerABV.val("");
-  queryTargetBeerIBU.val("");
-  queryTargetBeerAvailability.val("");
-  queryTargetBeerNotes.val("");
-
-  alert("Beer Added!")
-});
-
-// event listener to delete beer item
-
-function retrieveJsonAndDelete(searchTerm, callback) {
-  $.getJSON(API_URL + `/${searchTerm}`, callback);
-}
-
-function deleteBeer(data) {
-  $.ajax({
-    type: "DELETE",
-    url: API_URL + `/${data.id}`,
+    searchTarget.val("");
   });
 }
 
-$('.result').on('click', '.delete-button', function(event) {
-  event.preventDefault();
+function watchAddFormSubmit() {
+  $('.add-form').on('submit', function(event) {
+    event.preventDefault();
 
-  const queryTargetBeerName = $('.search-beer-name').html();
+    const addBeerNameValue = $(event.currentTarget).find('#beer-name').val();
+    const addBeerTypeValue = $(event.currentTarget).find('#beer-type').val();
+    const addBreweryNameValue = $(event.currentTarget).find('#brewery-name').val();
+    const addBreweryCityValue = $(event.currentTarget).find('#brewery-city').val();
+    const addBreweryStateValue = $(event.currentTarget).find('#brewery-state').val();
+    const addBeerABVValue = $(event.currentTarget).find('#beer-abv').val();
+    const addBeerIBUValue = $(event.currentTarget).find('#beer-ibu').val();
+    const addBeerAvailabilityValue = $(event.currentTarget).find('#beer-availability').val();
+    const addBeerNoteValues = $(event.currentTarget).find('#beer-notes').val();
 
-  retrieveJsonAndDelete(queryTargetBeerName, deleteBeer);
+    const objectPost = {
+      "beerName": addBeerNameValue,
+      "beerType": addBeerTypeValue,
+      "breweryName": addBreweryNameValue,
+      "breweryLocation": {
+        "city": addBreweryCityValue,
+        "state": addBreweryStateValue
+      },
+      "beerABV": addBeerABVValue,
+      "beerIBU": addBeerIBUValue,
+      "beerAvailability": addBeerAvailabilityValue,
+      "beerNotes": addBeerNotesValue
+    };
 
-  alert("Beer Deleted!")
-});
+    $.ajax({
+      type: "POST",
+      url: API_URL,
+      data: JSON.stringify(objectPost),
+      error: function(e) {
+        console.log(e);
+      },
+      dataType: "json",
+      contentType: "application/json"
+    });
 
-// event listener to edit beer item
-
-$('.result').on('click', '.edit-button', function(event) {
-  event.preventDefault();
-
-  const queryTargetBeerName = $('.search-beer-name').html();
-  const queryTargetBeerType = $('.search-beer-type').html();
-  const queryTargetBreweryName = $('.search-brewery-name').html();
-  const queryTargetBreweryCity = $('.search-brewery-location').html().split(',')[0];
-  const queryTargetBreweryState = $('.search-brewery-location').html().split(',')[1].trim();
-  const queryTargetBeerABV = $('.search-beer-abv').html();
-  const queryTargetBeerIBU = $('.search-beer-ibu').html();
-  const queryTargetBeerAvailability = $('.search-beer-availability').html();
-  const queryTargetBeerNotes = $('.search-beer-notes').html();
-  const queryTargetBeerId = $('.search-beer-id').html();
-
-  console.log(queryTargetBeerNotes);
-
-  $('.result').html(
-    `<div>
-      <form class="edit-beer-form">
-        <input type="text" id="edit-beer-name" value="${queryTargetBeerName}" required><br>
-        <input type="text" id="edit-beer-type" value="${queryTargetBeerType}" required><br>
-        <input type="text" id="edit-brewery-name" value="${queryTargetBreweryName}" required><br>
-        <input type="text" id="edit-brewery-city" value="${queryTargetBreweryCity}" required><br>
-        <input type="text" id="edit-brewery-state" value="${queryTargetBreweryState}" required><br>
-        <input type="text" id="edit-beer-abv" value="${queryTargetBeerABV}"><br>
-        <input type="text" id="edit-beer-ibu" value="${queryTargetBeerIBU}"><br>
-        <input type="text" id="edit-beer-availability" value="${queryTargetBeerAvailability}"><br>
-        <textarea id="edit-beer-notes">${queryTargetBeerNotes}</textarea><br>
-        <input type="text" id="edit-beer-id" value="${queryTargetBeerId}" hidden><br>
-        <button type="submit" class='edit-beer-form-submit'>Submit</button>
-      </form>
-    </div>`
-  );
-});
-
-$('.result').on('click', '.edit-beer-form-submit', function(event) {
-  event.preventDefault();
-
-  const queryTargetBeerName = $('#edit-beer-name').val();
-
-  const queryTermBeerName = $('#edit-beer-name').val();
-  const queryTermBeerType = $('#edit-beer-type').val();
-  const queryTermBreweryName = $('#edit-brewery-name').val();
-  const queryTermBreweryCity = $('#edit-brewery-city').val();
-  const queryTermBreweryState = $('#edit-brewery-state').val();
-  const queryTermBeerABV = $('#edit-beer-abv').val();
-  const queryTermBeerIBU = $('#edit-beer-ibu').val();
-  const queryTermBeerAvailability = $('#edit-beer-availability').val();
-  const queryTermBeerNotes = $('#edit-beer-notes').val();
-  const queryTermBeerId = $('#edit-beer-id').val();
-
-  const objectPost = {
-    "id": queryTermBeerId,
-    "beerName": queryTermBeerName,
-    "beerType": queryTermBeerType,
-    "breweryName": queryTermBreweryName,
-    "breweryLocation": {
-      "city": queryTermBreweryCity,
-      "state": queryTermBreweryState
-    },
-    "beerABV": queryTermBeerABV,
-    "beerIBU": queryTermBeerIBU,
-    "beerAvailability": queryTermBeerAvailability,
-    "beerNotes": queryTermBeerNotes
-  };
-
-  $.ajax({
-    type: "PUT",
-    url: API_URL + `/${queryTermBeerId}`,
-    data: JSON.stringify(objectPost),
-    error: function(e) {
-      console.log(e);
-    },
-    dataType: "json",
-    contentType: "application/json"
+    alert("Beer Added!");
+    document.location.href = '/'
   });
+}
 
-  alert("Beer Updated!")
-});
+function watchAddFormCancel() {
+  $('.add-form').on('click', '.add-form-cancel', function(event) {
+    event.preventDefault();
+    document.location.href = '/'
+  });
+}
+
+function watchEditButtonClick() {
+  $('.result').on('click', '.edit-button', function(event) {
+    event.preventDefault();
+
+    const searchToEditBeerName = $('.search-beer-name').html();
+    const searchToEditBeerType = $('.search-beer-type').html();
+    const searchToEditBreweryName = $('.search-brewery-name').html();
+    const searchToEditBreweryCity = $('.search-brewery-location').html().split(',')[0];
+    const searchToEditBreweryState = $('.search-brewery-location').html().split(',')[1].trim();
+    const searchToEditBeerABV = $('.search-beer-abv').html();
+    const searchToEditBeerIBU = $('.search-beer-ibu').html();
+    const searchToEditBeerAvailability = $('.search-beer-availability').html();
+    const searchToEditBeerNotes = $('.search-beer-notes').html();
+    const searchToEditBeerId = $('.search-beer-id').html();
+
+    const allVariables = [searchToEditBeerName, searchToEditBeerType, searchToEditBreweryName, searchToEditBreweryCity, searchToEditBreweryState, searchToEditBeerABV, searchToEditBeerIBU, searchToEditBeerAvailability, searchToEditBeerNotes, searchToEditBeerId];
+
+    for (index in allVariables) {
+      if (allVariables[index] === "null") {
+        allVariables[index] = "";
+      };
+    };
+
+    $('.result').html(
+      `
+        <form class="edit-form">
+          <input type="text" id="edit-beer-name" value="${allVariables[0]}" required><br>
+          <input type="text" id="edit-beer-type" value="${allVariables[1]}" required><br>
+          <input type="text" id="edit-brewery-name" value="${allVariables[2]}" required><br>
+          <input type="text" id="edit-brewery-city" value="${allVariables[3]}" required><br>
+          <input type="text" id="edit-brewery-state" value="${allVariables[4]}" required><br>
+          <input type="text" id="edit-beer-abv" value="${allVariables[5]}"><br>
+          <input type="text" id="edit-beer-ibu" value="${allVariables[6]}"><br>
+          <input type="text" id="edit-beer-availability" value="${allVariables[7]}"><br>
+          <textarea id="edit-beer-notes">${allVariables[8]}</textarea><br>
+          <input type="text" id="edit-beer-id" value="${allVariables[9]}" hidden><br>
+          <button type="submit" class='edit-form-submit'>Submit</button>
+          <button class='edit-form-cancel'>Cancel</button>
+        </form>
+      </div>`
+    );
+  });
+}
+
+function watchEditFormSubmit() {
+  $('.result').on('click', '.edit-form-submit', function(event) {
+    event.preventDefault();
+
+    const editBeerNameValue = $('#edit-beer-name').val();
+    const editBeerTypeValue = $('#edit-beer-type').val();
+    const editBreweryNameValue = $('#edit-brewery-name').val();
+    const editBreweryCityValue = $('#edit-brewery-city').val();
+    const editBreweryStateValue = $('#edit-brewery-state').val();
+    const editBeerABVValue = $('#edit-beer-abv').val();
+    const editBeerIBUValue = $('#edit-beer-ibu').val();
+    const editBeerAvailabilityValue = $('#edit-beer-availability').val();
+    const editBeerNotesValue = $('#edit-beer-notes').val();
+    const editBeerIdValue = $('#edit-beer-id').val();
+
+    const objectPost = {
+      "id": editBeerIdValue,
+      "beerName": editBeerNameValue,
+      "beerType": editBeerTypeValue,
+      "breweryName": editBreweryNameValue,
+      "breweryLocation": {
+        "city": editBreweryCityValue,
+        "state": editBreweryStateValue
+      },
+      "beerABV": editBeerABVValue,
+      "beerIBU": editBeerIBUValue,
+      "beerAvailability": editBeerAvailabilityValue,
+      "beerNotes": editBeerNotesValue
+    };
+
+    $.ajax({
+      type: "PUT",
+      url: API_URL + `/${editBeerIdValue}`,
+      data: JSON.stringify(objectPost),
+      error: function(e) {
+        console.log(e);
+      },
+      dataType: "json",
+      contentType: "application/json"
+    });
+
+    alert("Beer Updated!")
+    location.reload();
+  });
+}
+
+function watchEditFormCancel() {
+  $('.result').on('click', '.edit-form-cancel', function(event) {
+    event.preventDefault();
+
+    const editBeerNameValue = $('#edit-beer-name').val();
+    const editBeerTypeValue = $('#edit-beer-type').val();
+    const editBreweryNameValue = $('#edit-brewery-name').val();
+    const editBreweryCityValue = $('#edit-brewery-city').val();
+    const editBreweryStateValue = $('#edit-brewery-state').val();
+    const editBeerABVValue = $('#edit-beer-abv').val();
+    const editBeerIBUValue = $('#edit-beer-ibu').val();
+    const editBeerAvailabilityValue = $('#edit-beer-availability').val();
+    const editBeerNotesValue = $('#edit-beer-notes').val();
+    const editBeerIdValue = $('#edit-beer-id').val();
+
+    $('.result').html(
+      `<div>
+        <h2 class='search-beer-name'>${editBeerNameValue}</h2>
+        <p class='search-beer-type'>${editBeerTypeValue}</p>
+        <p><span class='search-brewery-name'>${editBreweryNameValue}</span> - <span class='search-brewery-location'>${editBreweryCityValue}, ${editBreweryStateValue}</span></p>
+        <p>ABV: <span class='search-beer-abv'>${editBeerABVValue}</span></p>
+        <p>IBU: <span class='search-beer-ibu'>${editBeerIBUValue}</span></p>
+        <p>Availability: <span class='search-beer-availability'>${editBeerAvailabilityValue}</span></p>
+        <p>Notes: <span class='search-beer-notes'>${editBeerNotesValue}</span></p>
+        <p hidden>ID: <span class='search-beer-id'>${editBeerIdValue}</span></p>
+        <button class="edit-button">Edit</button>
+        <button class="delete-button">Delete</button>
+      </div>
+      `
+    )
+  });
+}
+
+function watchDeleteButtonClick() {
+  $('.result').on('click', '.delete-button', function(event) {
+    event.preventDefault();
+
+    const deleteTargetBeerId = $('.search-beer-id').html();
+
+    $.ajax({
+      type: "DELETE",
+      url: API_URL + `/${deleteTargetBeerId}`,
+    });
+
+    alert("Beer Deleted!")
+    location.reload();
+  });
+}
+
+function addEventListeners() {
+  watchSearchSubmit();
+  watchAddFormSubmit();
+  watchAddFormCancel();
+  watchEditButtonClick();
+  watchEditFormSubmit();
+  watchEditFormCancel();
+  watchDeleteButtonClick();
+}
+
+$(addEventListeners);
