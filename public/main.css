@@ -23,6 +23,13 @@ main {
   top: 100px
 }
 
+.nav-right {
+  float: right;
+  position: relative;
+  top: 10px;
+  margin-right: 20px
+}
+
 #add-beer-container {
   padding: 20px 0 0 0
 }
@@ -59,8 +66,12 @@ main {
 .beer-selection-result {
   display: inline-block;
   width: 24%;
-  margin: 5px;
+  margin: 10px 0 20px 0;
   vertical-align: middle
+}
+
+.result {
+  margin: 0 50px;
 }
 
 .beer-search-result, .edit-form {
