@@ -27,7 +27,7 @@ main {
   padding: 20px 0 0 0
 }
 
-#logo, form {
+#nav-container * {
   display: inline-block;
   vertical-align: middle;
 }
@@ -37,23 +37,17 @@ main {
   padding: 6px 10px 6px 20px;
 }
 
-#logo:hover, #get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
+#logo:hover, #get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover, #browse-beers-button:hover {
   cursor: pointer;
 }
 
-.search *, #add-beer-button {
+.search *, #add-beer-button, #browse-beers-button {
   border-radius: 5px;
   font-size: 22px;
   padding: 10px;
 }
 
-#add-beer-button {
-  float: right;
-  position: relative;
-  top: 15px
-}
-
-#get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
+#get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover, #browse-beers-button:hover {
  background-color: lightBlue;
 }
 
