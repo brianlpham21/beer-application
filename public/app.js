@@ -14,6 +14,14 @@ function retrieveSelectIdJSON(beerId, callback) {
   $.getJSON(API_URL + `/${beerId}`, callback);
 }
 
+function retrieveSelectBeerTypeJSON(beerType, callback) {
+  $.getJSON(API_URL + `/beertype/${beerType}`, callback);
+}
+
+function retrieveSelectBreweryNameJSON(breweryName, callback) {
+  $.getJSON(API_URL + `/breweryname/${breweryName}`, callback);
+}
+
 function displayMainPageBeer(data) {
   if ($('.result').is(':empty')) {
     for (index in data.beers) {
@@ -42,6 +50,32 @@ function displayMainPageBeer(data) {
   }
 }
 
+function displayLikeBeers(data) {
+  for (index in data.beers) {
+    $('.result').append(
+      `<div class="beer-selection-result">
+        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+        <p>${data.beers[index].beerType}</p>
+        <p>${data.beers[index].breweryName}</p>
+        <p>${data.beers[index].breweryLocation}</p>
+      </div>`
+    );
+  }
+}
+
+function displayBreweryBeers(data) {
+  for (index in data.beers) {
+    $('.result').append(
+      `<div class="beer-selection-result">
+        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+        <p>${data.beers[index].beerType}</p>
+        <p>${data.beers[index].breweryName}</p>
+        <p>${data.beers[index].breweryLocation}</p>
+      </div>`
+    );
+  }
+}
+
 function displaySearchedBeerInformation(data) {
   const allVariables = [data.beerName, data.beerType, data.breweryName, data.breweryLocation, data.beerABV, data.beerIBU, data.beerAvailability, data.beerNotes, data.id];
 
@@ -64,7 +98,10 @@ function displaySearchedBeerInformation(data) {
       <button class="edit-button">Edit</button>
       <button class="delete-button">Delete</button>
     </div>`
-  )
+  );
+
+  retrieveSelectBeerTypeJSON(data.beerType, displayLikeBeers);
+  retrieveSelectBreweryNameJSON(data.breweryName, displayBreweryBeers);
 }
 
 function watchBrowseBeersButtonClick() {
@@ -247,14 +284,16 @@ function watchEditFormSubmit() {
       data: JSON.stringify(objectPost),
       error: function(e) {
         console.log(e);
+        alert('Beer Not Added! Beer Name Already in Database!')
       },
       dataType: "json",
-      contentType: "application/json"
+      contentType: "application/json",
+      success: function() {
+        alert("Beer Update!");
+        displayEditedBeer(editBeerNameValue);
+      }
     });
 
-    alert("Beer Updated!");
-
-    displayEditedBeer(editBeerNameValue);
   });
 }
 

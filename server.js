@@ -56,6 +56,38 @@ app.get('/beers/beername/:beerName', (req, res) => {
     });
 });
 
+app.get('/beers/beertype/:beerType', (req, res) => {
+  Beer
+    .find({'beerType': req.params.beerType})
+    .then(beers => {
+      res.json({
+        beers: beers.map(
+          (beer) => beer.serialize()
+        )
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Interal server error'});
+    });
+});
+
+app.get('/beers/breweryname/:breweryName', (req, res) => {
+  Beer
+    .find({'breweryName': req.params.breweryName})
+    .then(beers => {
+      res.json({
+        beers: beers.map(
+          (beer) => beer.serialize()
+        )
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Interal server error'});
+    });
+});
+
 app.get('/beers/:id', (req, res) => {
   Beer
     .findById(req.params.id)
