@@ -13,15 +13,30 @@ function retrieveSelectIdJSON(beerId, callback) {
 }
 
 function displayMainPageBeer(data) {
-  for (index in data.beers) {
-    $('.selections').append(
-      `<div class="beer-selection-result">
-        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
-        <p>${data.beers[index].beerType}</p>
-        <p>${data.beers[index].breweryName}</p>
-        <p>${data.beers[index].breweryLocation}</p>
-      </div>`
-    )
+  if ($('.result').is(':empty')) {
+    for (index in data.beers) {
+      $('.result').append(
+        `<div class="beer-selection-result">
+          <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+          <p>${data.beers[index].beerType}</p>
+          <p>${data.beers[index].breweryName}</p>
+          <p>${data.beers[index].breweryLocation}</p>
+        </div>`
+      )
+    }
+  }
+  else if ($('.result').length === 1) {
+    $('.result').html('');
+    for (index in data.beers) {
+      $('.result').append(
+        `<div class="beer-selection-result">
+          <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+          <p>${data.beers[index].beerType}</p>
+          <p>${data.beers[index].breweryName}</p>
+          <p>${data.beers[index].breweryLocation}</p>
+        </div>`
+      )
+    }
   }
 }
 
@@ -50,7 +65,11 @@ function displaySearchedBeerInformation(data) {
   )
 }
 
-$(retrieveAllBeerJSON(displayMainPageBeer));
+function watchBrowseBeersButtonClick() {
+  $('#browse-beers-button').on('click', function(event) {
+    retrieveAllBeerJSON(displayMainPageBeer);
+  });
+}
 
 function watchSearchSubmit() {
   $('.search').on('submit', function(event) {
@@ -73,7 +92,7 @@ function watchSearchSubmit() {
 }
 
 function watchSelectionSelect() {
-  $('.beer-selection-result-name').on('click', function(event) {
+  $('.result').on('click', '.beer-selection-result-name', function(event) {
     const beerName = $(event.currentTarget).html();
 
     retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
@@ -114,7 +133,7 @@ function watchAddFormSubmit() {
       data: JSON.stringify(objectPost),
       error: function(e) {
         console.log(e);
-        alert('Beer Not Added!')
+        alert('Beer Not Added! Beer Name Already in Database!')
       },
       dataType: "json",
       contentType: "application/json",
@@ -280,6 +299,7 @@ function watchLogo() {
 }
 
 function addEventListeners() {
+  watchBrowseBeersButtonClick();
   watchSearchSubmit();
   watchSelectionSelect();
   watchAddFormSubmit();

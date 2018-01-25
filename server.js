@@ -31,7 +31,6 @@ app.use(function(req, res, next) {
 app.get('/beers', (req, res) => {
   Beer
     .find()
-    .limit(4)
     .then(beers => {
       res.json({
         beers: beers.map(
@@ -79,6 +78,23 @@ app.post('/beers', (req, res) => {
       return res.status(400).send(message);
     }
   }
+
+  Beer
+    .findOne({'beerName': req.params.beerName})
+    .count()
+    .then(count => {
+      if (count > 0) {
+        return Promise.reject({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Beer Name already taken',
+        });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal server error'});
+    });
 
   Beer
     .create({
