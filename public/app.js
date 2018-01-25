@@ -1,5 +1,7 @@
 const API_URL = '/beers';
 
+//functions
+
 function retrieveAllBeerJSON(callback) {
   $.getJSON(API_URL, callback);
 }
