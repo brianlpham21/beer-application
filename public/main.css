@@ -26,7 +26,7 @@ main {
 .nav-right {
   float: right;
   position: relative;
-  top: 17px;
+  top: 15px;
   margin-right: 20px
 }
 
@@ -119,10 +119,6 @@ header {
 
 .beer-search-result-text {
   padding: 15px 20px 0 0
-}
-
-.error {
-  text-align: center
 }
 
 .beer-search-result img {

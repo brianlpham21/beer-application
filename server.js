@@ -31,6 +31,7 @@ app.use(function(req, res, next) {
 app.get('/beers', (req, res) => {
   Beer
     .find()
+    .sort({ 'beerName' : 1})
     .then(beers => {
       res.json({
         beers: beers.map(
@@ -48,7 +49,7 @@ app.get('/beers', (req, res) => {
 
 app.get('/beers/beername/:beerName', (req, res) => {
   Beer
-    .findOne({'beerName': req.params.beerName})
+    .findOne({'beerName': {$regex: `${req.params.beerName}`}})
     .then(beer => res.json(beer.serialize()))
     .catch(err => {
       console.error(err);

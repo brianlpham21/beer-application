@@ -5,7 +5,12 @@ function retrieveAllBeerJSON(callback) {
 }
 
 function retrieveSelectBeerJSON(beerSearchName, callback) {
-  $.getJSON(API_URL + `/beername/${beerSearchName}`, callback);
+  $.getJSON(API_URL + `/beername/${beerSearchName}`, callback)
+    .fail(
+      $('.search-result').html(`
+        <h2>Could Not Find Searched Beer.</h2>
+      `)
+    );
 }
 
 function retrieveSelectIdJSON(beerId, callback) {
@@ -130,7 +135,7 @@ function displaySearchedBeerInformation(data) {
         <h2 class='search-beer-name'>${allVariables[0]}</h2>
         <p class='search-beer-type'>${allVariables[1]}</p>
         <p><span class='search-brewery-name'>${allVariables[2]}</span> - <span class='search-brewery-location'>${allVariables[3]}</span></p>
-        <p><strong>ABV:</strong> <span class='search-beer-abv'>${allVariables[4]}</span></p>
+        <p><strong>ABV:</strong> <span class='search-beer-abv'>${allVariables[4]}%</span></p>
         <p><strong>IBU:</strong> <span class='search-beer-ibu'>${allVariables[5]}</span></p>
         <p><strong>Availability:</strong> <span class='search-beer-availability'>${allVariables[6]}</span></p>
         <p><strong>Notes:</strong> <span class='search-beer-notes'>${allVariables[7]}</span></p>
@@ -164,7 +169,7 @@ function watchSearchSubmit() {
 
     if (searchTerm === "") {
       $('.error').html(`
-        <h1>Please Enter Something into the Field.</h1>
+        <h2>Please Enter Something into the Field.</h2>
         `);
       return;
     }
@@ -262,7 +267,7 @@ function watchEditButtonClick() {
     const searchToEditBreweryName = $('.search-brewery-name').html();
     const searchToEditBreweryCity = $('.search-brewery-location').html().split(',')[0];
     const searchToEditBreweryState = $('.search-brewery-location').html().split(',')[1].trim();
-    const searchToEditBeerABV = $('.search-beer-abv').html();
+    const searchToEditBeerABV = $('.search-beer-abv').html().slice(0, -1);
     const searchToEditBeerIBU = $('.search-beer-ibu').html();
     const searchToEditBeerAvailability = $('.search-beer-availability').html();
     const searchToEditBeerNotes = $('.search-beer-notes').html();
@@ -286,7 +291,7 @@ function watchEditButtonClick() {
           <input type="text" id="edit-brewery-name" placeholder="Brewery Name" value="${allVariables[2]}" size="50" required><br>
           <input type="text" id="edit-brewery-city" placeholder="Brewery Location - City" value="${allVariables[3]}" size="50" required><br>
           <input type="text" id="edit-brewery-state" placeholder="Brewery Location - State" value="${allVariables[4]}" size="50" required><br>
-          <input type="text" id="edit-beer-abv" placeholder="Beer ABV" value="${allVariables[5]}"><br>
+          <input type="text" id="edit-beer-abv" placeholder="Beer ABV (Number Only)" value="${allVariables[5]}" size="23"><br>
           <input type="text" id="edit-beer-ibu" placeholder="Beer IBU" value="${allVariables[6]}"><br>
           <input type="text" id="edit-beer-availability" placeholder="Beer Availability" value="${allVariables[7]}" size="50"><br>
           <textarea placeholder="Beer Notes" id="edit-beer-notes" rows="10" cols="50">${allVariables[8]}</textarea><br>
