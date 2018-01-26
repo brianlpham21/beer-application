@@ -1,7 +1,5 @@
 const API_URL = '/beers';
 
-//functions
-
 function retrieveAllBeerJSON(callback) {
   $.getJSON(API_URL, callback);
 }
@@ -148,7 +146,7 @@ function displaySearchedBeerInformation(data) {
 }
 
 function watchBrowseBeersButtonClick() {
-  $('#browse-beers-button').on('click', function(event) {
+  $('.browse-beers-button').on('click', function(event) {
     retrieveAllBeerJSON(displayMainPageBeer);
   });
 }
@@ -283,16 +281,16 @@ function watchEditButtonClick() {
       `<div>
         <h2>Beer Edit Form</h2>
         <form class="edit-form">
-          <input type="text" id="edit-beer-name" placeholder="Beer Name" value="${allVariables[0]}" required><br>
-          <input type="text" id="edit-beer-type" placeholder="Beer Type" value="${allVariables[1]}" required><br>
-          <input type="text" id="edit-brewery-name" placeholder="Brewery Name" value="${allVariables[2]}" required><br>
-          <input type="text" id="edit-brewery-city" placeholder="Brewery Location - City" value="${allVariables[3]}" required><br>
-          <input type="text" id="edit-brewery-state" placeholder="Brewery Location - State" value="${allVariables[4]}" required><br>
+          <input type="text" id="edit-beer-name" placeholder="Beer Name" value="${allVariables[0]}" size="50" required><br>
+          <input type="text" id="edit-beer-type" placeholder="Beer Type" value="${allVariables[1]}" size="50" required><br>
+          <input type="text" id="edit-brewery-name" placeholder="Brewery Name" value="${allVariables[2]}" size="50" required><br>
+          <input type="text" id="edit-brewery-city" placeholder="Brewery Location - City" value="${allVariables[3]}" size="50" required><br>
+          <input type="text" id="edit-brewery-state" placeholder="Brewery Location - State" value="${allVariables[4]}" size="50" required><br>
           <input type="text" id="edit-beer-abv" placeholder="Beer ABV" value="${allVariables[5]}"><br>
           <input type="text" id="edit-beer-ibu" placeholder="Beer IBU" value="${allVariables[6]}"><br>
-          <input type="text" id="edit-beer-availability" placeholder="Beer Availability" value="${allVariables[7]}"><br>
-          <textarea placeholder="Beer Notes" id="edit-beer-notes" rows="5">${allVariables[8]}</textarea><br>
-          <input type="text" id="edit-beer-url" placeholder="Beer Image URL" value="${allVariables[10]}"><br>
+          <input type="text" id="edit-beer-availability" placeholder="Beer Availability" value="${allVariables[7]}" size="50"><br>
+          <textarea placeholder="Beer Notes" id="edit-beer-notes" rows="10" cols="50">${allVariables[8]}</textarea><br>
+          <input type="text" id="edit-beer-url" placeholder="Beer Image URL" value="${allVariables[10]}" size="50"><br>
           <input type="text" id="edit-beer-id" value="${allVariables[9]}" hidden><br>
           <button type="submit" class='edit-form-submit'>Submit</button>
           <button class='edit-form-cancel'>Cancel</button>
@@ -393,8 +391,8 @@ function displayDeletedBeer(beerName) {
   $('.search-result').html(`${beerName} has been deleted!`)
 }
 
-function watchLogo() {
-  $('#logo').on('click', function() {
+function watchLogoAndHome() {
+  $('#logo, .home-button').on('click', function() {
     location.reload();
   });
 }
@@ -411,7 +409,7 @@ function addEventListeners() {
   watchEditFormSubmit();
   watchEditFormCancel();
   watchDeleteButtonClick();
-  watchLogo();
+  watchLogoAndHome();
 }
 
 $(addEventListeners);
