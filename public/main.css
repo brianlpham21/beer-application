@@ -70,8 +70,8 @@ main {
   vertical-align: middle
 }
 
-.no-search-value-error {
-  margin: auto;
+.error {
+  text-align: center
 }
 
 .beer-search-result img {

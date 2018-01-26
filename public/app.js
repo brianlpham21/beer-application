@@ -23,6 +23,7 @@ function retrieveSelectBreweryNameJSON(breweryName, callback) {
 }
 
 function displayMainPageBeer(data) {
+  $('.error').html('');
   if ($('.cards').is(':empty')) {
     $('.search-result').html('');
 
@@ -159,9 +160,13 @@ function watchSearchSubmit() {
     const searchTarget = $(event.currentTarget).find('input');
     const searchTerm = (searchTarget.val());
 
+    $('.search-result').html('');
+    $('.cards').html('');
+    $('.error').html('');
+
     if (searchTerm === "") {
-      $('.cards').html(`
-        <h1 class='no-search-value-error'>Please Enter Something into the Field.</h1>
+      $('.error').html(`
+        <h1>Please Enter Something into the Field.</h1>
         `);
       return;
     }
