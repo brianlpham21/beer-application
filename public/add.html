@@ -4,21 +4,22 @@
     <meta charset="utf-8">
     <title>Add a Beer Form</title>
     <link href="main.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster" rel="stylesheet">
   </head>
   <body>
     <div id="add-beer-container">
       <h1>Add Beer Form</h1>
       <form class="add-form">
-        <input type="text" id="beer-name" placeholder="Beer Name" required><br>
-        <input type="text" id="beer-type" placeholder="Beer Type" required><br>
-        <input type="text" id="brewery-name" placeholder="Brewery Name" required><br>
-        <input type="text" id="brewery-city" placeholder="Brewery Location - City" required><br>
-        <input type="text" id="brewery-state" placeholder="Brewery Location - State" required><br>
+        <input type="text" id="beer-name" placeholder="Beer Name" size="50" required><br>
+        <input type="text" id="beer-type" placeholder="Beer Type" size="50" required><br>
+        <input type="text" id="brewery-name" placeholder="Brewery Name" size="50" required><br>
+        <input type="text" id="brewery-city" placeholder="Brewery Location - City" size="50" required><br>
+        <input type="text" id="brewery-state" placeholder="Brewery Location - State" size="50" required><br>
         <input type="text" id="beer-abv" placeholder="Beer ABV"><br>
         <input type="text" id="beer-ibu" placeholder="Beer IBU"><br>
-        <input type="text" id="beer-availability" placeholder="Beer Availability"><br>
-        <textarea id="beer-notes" placeholder="Beer Notes" rows="5"></textarea><br>
-        <input type="text" id="beer-url" placeholder="Beer Image URL"><br>
+        <input type="text" id="beer-availability" placeholder="Beer Availability" size="50"><br>
+        <textarea id="beer-notes" placeholder="Beer Notes" rows="10" cols="50"></textarea><br>
+        <input type="text" id="beer-url" placeholder="Beer Image URL" size="50"><br>
         <button type="submit" class='add-form-submit'>Submit</button>
         <button class='add-form-cancel'>Cancel</button>
       </form>
