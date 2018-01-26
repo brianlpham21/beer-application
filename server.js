@@ -140,7 +140,8 @@ app.post('/beers', (req, res) => {
       beerABV: req.body.beerABV,
       beerIBU: req.body.beerIBU,
       beerAvailability: req.body.beerAvailability,
-      beerNotes: req.body.beerNotes
+      beerNotes: req.body.beerNotes,
+      beerURL: req.body.beerURL
     })
     .then(beer => res.status(201).json(beer.serialize()))
     .catch(err => {
@@ -162,7 +163,7 @@ app.put('/beers/:id', (req, res) => {
   };
 
   const toUpdate = {};
-  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation', 'beerABV', 'beerIBU', 'beerAvailability', 'beerNotes'];
+  const updateableFields = ['beerName', 'beerType', 'breweryName', 'breweryLocation', 'beerABV', 'beerIBU', 'beerAvailability', 'beerNotes', 'beerURL'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
@@ -181,7 +182,8 @@ app.put('/beers/:id', (req, res) => {
       'beerABV': toUpdate.beerABV,
       'beerIBU': toUpdate.beerIBU,
       'beerAvailability': toUpdate.beerAvailability,
-      'beerNotes': toUpdate.beerNotes
+      'beerNotes': toUpdate.beerNotes,
+      'beerURL': toUpdate.beerURL
       }
     })
     .then(beer => res.status(204).end())
