@@ -13,7 +13,8 @@ const beerSchema = mongoose.Schema({
   beerABV: Number,
   beerIBU: Number,
   beerAvailability: String,
-  beerNotes: String
+  beerNotes: String,
+  beerURL: String
 });
 
 beerSchema.virtual('breweryAddress').get(function() {
@@ -30,7 +31,8 @@ beerSchema.methods.serialize = function() {
     beerABV: this.beerABV,
     beerIBU: this.beerIBU,
     beerAvailability: this.beerAvailability,
-    beerNotes: this.beerNotes
+    beerNotes: this.beerNotes,
+    beerURL: this.beerURL
   };
 };
 

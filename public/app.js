@@ -23,28 +23,54 @@ function retrieveSelectBreweryNameJSON(breweryName, callback) {
 }
 
 function displayMainPageBeer(data) {
-  if ($('.result').is(':empty')) {
+  if ($('.cards').is(':empty')) {
+    $('.search-result').html('');
+
     for (index in data.beers) {
-      $('.result').append(
-        `<div class="beer-selection-result">
-          <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
-          <p>${data.beers[index].beerType}</p>
-          <p>${data.beers[index].breweryName}</p>
-          <p>${data.beers[index].breweryLocation}</p>
-        </div>`
-      )
+      if (data.beers[index].beerURL === undefined || data.beers[index].beerURL === "") {
+        data.beers[index].beerURL = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+      };
+
+      $('.cards').append(
+        `<article class="card beer-selection-result-name">
+          <a href="#">
+            <figure class="thumbnail">
+            <img src="${data.beers[index].beerURL}" alt="beer-photo" class="beer-photo">
+            </figure>
+            <div class="card-content">
+              <h2 class="card-content-beer-name">${data.beers[index].beerName}</h2>
+              <p>${data.beers[index].beerType}</p>
+              <p>${data.beers[index].breweryName}</p>
+              <p>${data.beers[index].breweryLocation}</p>
+            </div>
+          </a>
+        </article>`
+      );
     }
   }
-  else if ($('.result').length === 1) {
-    $('.result').html('');
+  else if ($('.search-result').html() !== "") {
+    $('.search-result').html('');
+    $('.cards').html('');
+
     for (index in data.beers) {
-      $('.result').append(
-        `<div class="beer-selection-result">
-          <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
-          <p>${data.beers[index].beerType}</p>
-          <p>${data.beers[index].breweryName}</p>
-          <p>${data.beers[index].breweryLocation}</p>
-        </div>`
+      if (data.beers[index].beerURL === undefined || data.beers[index].beerURL === "") {
+        data.beers[index].beerURL = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+      };
+
+      $('.cards').append(
+        `<article class="card beer-selection-result-name">
+          <a href="#">
+            <figure class="thumbnail">
+            <img src="${data.beers[index].beerURL}" alt="beer-photo" class="beer-photo">
+            </figure>
+            <div class="card-content">
+              <h2 class="card-content-beer-name">${data.beers[index].beerName}</h2>
+              <p>${data.beers[index].beerType}</p>
+              <p>${data.beers[index].breweryName}</p>
+              <p>${data.beers[index].breweryLocation}</p>
+            </div>
+          </a>
+        </article>`
       )
     }
   }
@@ -52,9 +78,9 @@ function displayMainPageBeer(data) {
 
 function displayLikeBeers(data) {
   for (index in data.beers) {
-    $('.result').append(
+    $('.cards').append(
       `<div class="beer-selection-result">
-        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+        <h2 class="beer-additional-selection-result-name">${data.beers[index].beerName}</h2>
         <p>${data.beers[index].beerType}</p>
         <p>${data.beers[index].breweryName}</p>
         <p>${data.beers[index].breweryLocation}</p>
@@ -65,9 +91,9 @@ function displayLikeBeers(data) {
 
 function displayBreweryBeers(data) {
   for (index in data.beers) {
-    $('.result').append(
+    $('.cards').append(
       `<div class="beer-selection-result">
-        <h2 class="beer-selection-result-name">${data.beers[index].beerName}</h2>
+        <h2 class="beer-additional-selection-result-name">${data.beers[index].beerName}</h2>
         <p>${data.beers[index].beerType}</p>
         <p>${data.beers[index].breweryName}</p>
         <p>${data.beers[index].breweryLocation}</p>
@@ -76,8 +102,16 @@ function displayBreweryBeers(data) {
   }
 }
 
+function watchAdditionalSelects() {
+  $('.cards').on('click', '.beer-additional-selection-result-name', function(event) {
+    const beerName = $(event.currentTarget).html();
+
+    retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
+  })
+}
+
 function displaySearchedBeerInformation(data) {
-  const allVariables = [data.beerName, data.beerType, data.breweryName, data.breweryLocation, data.beerABV, data.beerIBU, data.beerAvailability, data.beerNotes, data.id];
+  const allVariables = [data.beerName, data.beerType, data.breweryName, data.breweryLocation, data.beerABV, data.beerIBU, data.beerAvailability, data.beerNotes, data.id, data.beerURL];
 
   for (index in allVariables) {
     if (allVariables[index] === null || allVariables[index] === undefined) {
@@ -85,23 +119,31 @@ function displaySearchedBeerInformation(data) {
     };
   };
 
-  $('.result').html(
+  if (data.beerURL === undefined || data.beerURL === "") {
+    allVariables[9] = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+  };
+
+  $('.cards').html('');
+  $('.search-result').html(
     `<div class="beer-search-result">
-      <h2 class='search-beer-name'>${allVariables[0]}</h2>
-      <p class='search-beer-type'>${allVariables[1]}</p>
-      <p><span class='search-brewery-name'>${allVariables[2]}</span> - <span class='search-brewery-location'>${allVariables[3]}</span></p>
-      <p>ABV: <span class='search-beer-abv'>${allVariables[4]}</span></p>
-      <p>IBU: <span class='search-beer-ibu'>${allVariables[5]}</span></p>
-      <p>Availability: <span class='search-beer-availability'>${allVariables[6]}</span></p>
-      <p>Notes: <span class='search-beer-notes'>${allVariables[7]}</span></p>
-      <p hidden>ID: <span class='search-beer-id'>${allVariables[8]}</span></p>
-      <button class="edit-button">Edit</button>
-      <button class="delete-button">Delete</button>
+      <img src="${allVariables[9]}"" alt="beer-photo" class='search-beer-url'>
+      <div class="beer-search-result-text">
+        <h2 class='search-beer-name'>${allVariables[0]}</h2>
+        <p class='search-beer-type'>${allVariables[1]}</p>
+        <p><span class='search-brewery-name'>${allVariables[2]}</span> - <span class='search-brewery-location'>${allVariables[3]}</span></p>
+        <p><strong>ABV:</strong> <span class='search-beer-abv'>${allVariables[4]}</span></p>
+        <p><strong>IBU:</strong> <span class='search-beer-ibu'>${allVariables[5]}</span></p>
+        <p><strong>Availability:</strong> <span class='search-beer-availability'>${allVariables[6]}</span></p>
+        <p><strong>Notes:</strong> <span class='search-beer-notes'>${allVariables[7]}</span></p>
+        <p hidden>ID: <span class='search-beer-id'>${allVariables[8]}</span></p>
+        <button class="edit-button">Edit</button>
+        <button class="delete-button">Delete</button>
+      </div>
     </div>`
   );
 
-  retrieveSelectBeerTypeJSON(data.beerType, displayLikeBeers);
-  retrieveSelectBreweryNameJSON(data.breweryName, displayBreweryBeers);
+  // retrieveSelectBeerTypeJSON(data.beerType, displayLikeBeers);
+  // retrieveSelectBreweryNameJSON(data.breweryName, displayBreweryBeers);
 }
 
 function watchBrowseBeersButtonClick() {
@@ -118,7 +160,9 @@ function watchSearchSubmit() {
     const searchTerm = (searchTarget.val());
 
     if (searchTerm === "") {
-      $('.result').html(`Please Enter Something into the Field.`);
+      $('.cards').html(`
+        <h1 class='no-search-value-error'>Please Enter Something into the Field.</h1>
+        `);
       return;
     }
 
@@ -131,8 +175,8 @@ function watchSearchSubmit() {
 }
 
 function watchSelectionSelect() {
-  $('.result').on('click', '.beer-selection-result-name', function(event) {
-    const beerName = $(event.currentTarget).html();
+  $('.cards').on('click', '.beer-selection-result-name', function(event) {
+    const beerName = $(event.currentTarget).find('.card-content-beer-name').html();
 
     retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
   })
@@ -151,6 +195,7 @@ function watchAddFormSubmit() {
     const addBeerIBUValue = $(event.currentTarget).find('#beer-ibu').val();
     const addBeerAvailabilityValue = $(event.currentTarget).find('#beer-availability').val();
     const addBeerNotesValue = $(event.currentTarget).find('#beer-notes').val();
+    const addBeerURLValue = $(event.currentTarget).find('#beer-url').val();
 
     const objectPost = {
       "beerName": addBeerNameValue,
@@ -163,7 +208,8 @@ function watchAddFormSubmit() {
       "beerABV": addBeerABVValue,
       "beerIBU": addBeerIBUValue,
       "beerAvailability": addBeerAvailabilityValue,
-      "beerNotes": addBeerNotesValue
+      "beerNotes": addBeerNotesValue,
+      "beerURL": addBeerURLValue
     };
 
     $.ajax({
@@ -205,7 +251,7 @@ function watchAddFormCancel() {
 }
 
 function watchEditButtonClick() {
-  $('.result').on('click', '.edit-button', function(event) {
+  $('.search-result').on('click', '.edit-button', function(event) {
     event.preventDefault();
 
     const searchToEditBeerName = $('.search-beer-name').html();
@@ -218,17 +264,19 @@ function watchEditButtonClick() {
     const searchToEditBeerAvailability = $('.search-beer-availability').html();
     const searchToEditBeerNotes = $('.search-beer-notes').html();
     const searchToEditBeerId = $('.search-beer-id').html();
+    const searchToEditBeerURL = $('.search-beer-url').attr('src');
 
-    const allVariables = [searchToEditBeerName, searchToEditBeerType, searchToEditBreweryName, searchToEditBreweryCity, searchToEditBreweryState, searchToEditBeerABV, searchToEditBeerIBU, searchToEditBeerAvailability, searchToEditBeerNotes, searchToEditBeerId];
+    const allVariables = [searchToEditBeerName, searchToEditBeerType, searchToEditBreweryName, searchToEditBreweryCity, searchToEditBreweryState, searchToEditBeerABV, searchToEditBeerIBU, searchToEditBeerAvailability, searchToEditBeerNotes, searchToEditBeerId, searchToEditBeerURL];
 
     for (index in allVariables) {
-      if (allVariables[index] === "null") {
+      if (allVariables[index] === "null" || allVariables[index] === "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" || allVariables[index] === undefined) {
         allVariables[index] = "";
       };
     };
 
-    $('.result').html(
-      `
+    $('.search-result').html(
+      `<div>
+        <h2>Beer Edit Form</h2>
         <form class="edit-form">
           <input type="text" id="edit-beer-name" placeholder="Beer Name" value="${allVariables[0]}" required><br>
           <input type="text" id="edit-beer-type" placeholder="Beer Type" value="${allVariables[1]}" required><br>
@@ -238,7 +286,8 @@ function watchEditButtonClick() {
           <input type="text" id="edit-beer-abv" placeholder="Beer ABV" value="${allVariables[5]}"><br>
           <input type="text" id="edit-beer-ibu" placeholder="Beer IBU" value="${allVariables[6]}"><br>
           <input type="text" id="edit-beer-availability" placeholder="Beer Availability" value="${allVariables[7]}"><br>
-          <textarea placeholder="Beer Notes" id="edit-beer-notes">${allVariables[8]}</textarea><br>
+          <textarea placeholder="Beer Notes" id="edit-beer-notes" rows="5">${allVariables[8]}</textarea><br>
+          <input type="text" id="edit-beer-url" placeholder="Beer Image URL" value="${allVariables[10]}"><br>
           <input type="text" id="edit-beer-id" value="${allVariables[9]}" hidden><br>
           <button type="submit" class='edit-form-submit'>Submit</button>
           <button class='edit-form-cancel'>Cancel</button>
@@ -249,7 +298,7 @@ function watchEditButtonClick() {
 }
 
 function watchEditFormSubmit() {
-  $('.result').on('click', '.edit-form-submit', function(event) {
+  $('.search-result').on('click', '.edit-form-submit', function(event) {
     event.preventDefault();
 
     const editBeerNameValue = $('#edit-beer-name').val();
@@ -262,6 +311,7 @@ function watchEditFormSubmit() {
     const editBeerAvailabilityValue = $('#edit-beer-availability').val();
     const editBeerNotesValue = $('#edit-beer-notes').val();
     const editBeerIdValue = $('#edit-beer-id').val();
+    const editBeerURLValue = $('#edit-beer-url').val();
 
     const objectPost = {
       "id": editBeerIdValue,
@@ -275,7 +325,8 @@ function watchEditFormSubmit() {
       "beerABV": editBeerABVValue,
       "beerIBU": editBeerIBUValue,
       "beerAvailability": editBeerAvailabilityValue,
-      "beerNotes": editBeerNotesValue
+      "beerNotes": editBeerNotesValue,
+      "beerURL": editBeerURLValue
     };
 
     $.ajax({
@@ -302,7 +353,7 @@ function displayEditedBeer(beerName) {
 }
 
 function watchEditFormCancel() {
-  $('.result').on('click', '.edit-form-cancel', function(event) {
+  $('.search-result').on('click', '.edit-form-cancel', function(event) {
     event.preventDefault();
 
     const editBeerIdValue = $('#edit-beer-id').val();
@@ -312,25 +363,29 @@ function watchEditFormCancel() {
 }
 
 function watchDeleteButtonClick() {
-  $('.result').on('click', '.delete-button', function(event) {
+  $('.search-result').on('click', '.delete-button', function(event) {
     event.preventDefault();
 
     const deleteTargetBeerId = $('.search-beer-id').html();
     const deleteTargetBeerName = $('.search-beer-name').html()
 
-    $.ajax({
-      type: "DELETE",
-      url: API_URL + `/${deleteTargetBeerId}`,
-    });
+    let status = confirm("Are you sure you would like to delete this beer?");
 
-    alert("Beer Deleted!")
+    if (status === true) {
+      $.ajax({
+        type: "DELETE",
+        url: API_URL + `/${deleteTargetBeerId}`,
+      });
 
-    displayDeletedBeer(deleteTargetBeerName);
+      alert("Beer Deleted!")
+
+      displayDeletedBeer(deleteTargetBeerName);
+    }
   });
 }
 
 function displayDeletedBeer(beerName) {
-  $('.result').html(`${beerName} has been deleted!`)
+  $('.search-result').html(`${beerName} has been deleted!`)
 }
 
 function watchLogo() {
@@ -343,6 +398,7 @@ function addEventListeners() {
   watchBrowseBeersButtonClick();
   watchSearchSubmit();
   watchSelectionSelect();
+  watchAdditionalSelects();
   watchAddFormSubmit();
   watchAddFormCancel();
   watchAddedBeer();

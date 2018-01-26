@@ -58,7 +58,7 @@ main {
  background-color: lightBlue;
 }
 
-#beers-container, #add-beer-container {
+#add-beer-container {
   margin: auto;
   max-width: 1100px;
 }
@@ -70,8 +70,22 @@ main {
   vertical-align: middle
 }
 
-.result {
-  margin: 0 50px;
+.no-search-value-error {
+  margin: auto;
+}
+
+.beer-search-result img {
+  float: left;
+  padding-right: 20px;
+}
+
+.beer-search-result-text {
+  position: relative;
+}
+
+.edit-button, .delete-button {
+  float: right;
+  margin: 5px 5px 0 0
 }
 
 .beer-search-result, .edit-form {
@@ -84,7 +98,7 @@ main {
   padding: 8px;
 }
 
-.beer-selection-result-name:hover {
+.beer-selection-result-name:hover, .beer-additional-selection-result-name:hover {
   cursor: pointer;
   color: purple;
 }
@@ -94,4 +108,136 @@ form * {
   font-size: 15px;
   padding: 4px;
   margin: 3px 0 3px 0
+}
+
+/*  */
+
+body {font-family: sans-serif;}
+p {color: #666;}
+
+h2 {
+  font-size: 2em;
+  color: #e74c3c;
+}
+.centered {
+    margin: 0 auto;
+    padding: 0 1em;
+}
+
+@media screen and (min-width: 52em) {
+    .centered {
+        max-width: 52em;
+    }
+}
+
+/*--------------------------------------------------------------
+Header styles minus menu
+--------------------------------------------------------------*/
+
+.masthead {
+    background: #e74c3c;
+  	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+}
+
+.site-title {
+    margin: 0 0 1em;
+    padding: 1em 0;
+    font-size: 2em;
+    font-weight: 300;
+    text-align: center;
+    color: black;
+}
+
+@media screen and (min-width: 44.44em) {
+    .site-title {
+        font-size: 2em;
+    }
+}
+
+@media screen and (min-width: 50em) {
+    .site-title {
+        font-size: 2.5em;
+    }
+}
+
+.site-title a {
+    color: hsl(5, 45%, 95%);
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    text-decoration: underline;
+}
+
+/* Card Based Layout - Base styles */
+body {
+  background: #ecf0f1;
+  line-height: 1.4;
+}
+
+.site-title {
+	color: white;
+}
+
+.card {
+	background: white;
+	margin-bottom: 2em;
+}
+
+.card a {
+	color: black;
+	text-decoration: none;
+  margin: auto
+}
+
+.card:hover {
+	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+}
+
+.card-content {
+	padding: 1.4em;
+}
+
+.card-content h2 {
+	margin-top: 0;
+	margin-bottom: .5em;
+	font-weight: normal;
+}
+
+.card-content p {
+	font-size: 95%;
+}
+
+img.beer-photo {
+  width: 100%;
+  height: auto;
+  padding: 20px
+}
+
+/* Flexbox styles */
+@media screen and (min-width: 40em) {
+  .cards {
+    margin-top: -1em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin-bottom: 1em;
+    display: flex;
+    flex: 0 1 calc(50% - 0.5em);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .cards {
+    margin-top: inherit;
+  }
+
+  .card {
+    margin-bottom: 2em;
+    display: flex;
+    flex: 0 1 calc(33% - 0.5em);
+  }
 }
