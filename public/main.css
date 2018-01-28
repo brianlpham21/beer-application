@@ -64,16 +64,24 @@ main {
   padding: 6px;
 }
 
+#get-beer-button {
+  margin-left: 2px;
+  margin-right: 20px;
+  padding: 6px 10px;
+}
+
 #add-beer-button {
   background-color: #AAAAAA;
-  margin-left: 5px
+  margin-left: 5px;
+  margin-bottom: 50px;
+  padding: 20px 30px;
 }
 
 #get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
  background-color: #ffe97a;
 }
 
-.home-button, .browse-beers-button {
+.home-button, .browse-beers-button, .about-button {
   text-decoration: none;
   color: white;
   position: relative;
@@ -85,11 +93,11 @@ main {
   padding-left: 70px;
 }
 
-.browse-beers-button {
+.browse-beers-button, .about-button {
   padding-left: 30px;
 }
 
-.home-button:hover, .browse-beers-button:hover {
+.home-button:hover, .browse-beers-button:hover, .about-button:hover {
   color: lightBlue;
 }
 
@@ -97,17 +105,53 @@ main {
   color: gold;
 }
 
-#add-beer-container {
+#add-beer-container, .header-container {
   margin: auto;
   max-width: 1100px;
 }
 
 header {
   position: relative;
-  top: 75px;
-  text-align: center;
+  top: 70px;
   background-color: lightBlue;
-  height: 200px;
+  height: 600px;
+}
+
+.header-text {
+  width: 45%;
+  position: relative;
+  top: 60px;
+}
+
+.header-title {
+  vertical-align: middle;
+  padding-bottom: 15px;
+  font-size: 60px
+}
+
+.header-description {
+  font-size: 20px;
+  line-height: 30px
+}
+
+.header-image img {
+  float: right;
+  width: 42%;
+  position: relative;
+  top: -330px
+}
+
+.enter-button {
+  font-size: 25px;
+  color: black
+}
+
+.enter-button:hover {
+  color: white
+}
+
+.hidden {
+  display: none
 }
 
 .beer-search-result {
@@ -144,6 +188,11 @@ header {
 .beer-selection-result-name:hover, .beer-additional-selection-result-name:hover {
   cursor: pointer;
   color: purple;
+}
+
+.edit-button {
+  margin-right: 40px;
+  padding: 8px 15px
 }
 
 form * {
