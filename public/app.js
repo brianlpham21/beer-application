@@ -27,6 +27,9 @@ function retrieveSelectBreweryNameJSON(breweryName, callback) {
 
 function displayMainPageBeer(data) {
   $('.error').html('');
+  $('header').addClass('hidden');
+  $('.about').html('');
+
   if ($('.cards').is(':empty')) {
     $('.search-result').html('');
 
@@ -51,6 +54,10 @@ function displayMainPageBeer(data) {
         </article>`
       );
     }
+
+    $('.cards').append(
+      `<a href="add.html"><button id="add-beer-button">Add Beer</button></a>`
+    );
   }
   else if ($('.search-result').html() !== "") {
     $('.search-result').html('');
@@ -75,8 +82,12 @@ function displayMainPageBeer(data) {
             </div>
           </a>
         </article>`
-      )
+      );
     }
+
+    $('.cards').append(
+      `<a href="add.html"><button id="add-beer-button">Add Beer</button></a>`
+    );
   }
 }
 
@@ -151,7 +162,11 @@ function displaySearchedBeerInformation(data) {
 }
 
 function watchBrowseBeersButtonClick() {
-  $('.browse-beers-button').on('click', function(event) {
+  $('.browse-beers-button, .enter-button').on('click', function(event) {
+    $('.home-button').removeClass('current');
+    $('.browse-beers-button').addClass('current');
+    $('.about-button').removeClass('current');
+
     retrieveAllBeerJSON(displayMainPageBeer);
   });
 }
@@ -166,6 +181,12 @@ function watchSearchSubmit() {
     $('.search-result').html('');
     $('.cards').html('');
     $('.error').html('');
+    $('.about').html('');
+    $('header').addClass('hidden');
+
+    $('.home-button').removeClass('current');
+    $('.browse-beers-button').removeClass('current');
+    $('.about-button').removeClass('current');
 
     if (searchTerm === "") {
       $('.error').html(`
@@ -185,6 +206,9 @@ function watchSearchSubmit() {
 function watchSelectionSelect() {
   $('.cards').on('click', '.beer-selection-result-name', function(event) {
     const beerName = $(event.currentTarget).find('.card-content-beer-name').html();
+    $('.home-button').removeClass('current');
+    $('.browse-beers-button').removeClass('current');
+    $('.about-button').removeClass('current');
 
     retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
   })
@@ -398,7 +422,30 @@ function displayDeletedBeer(beerName) {
 
 function watchLogoAndHome() {
   $('#logo, .home-button').on('click', function() {
-    location.reload();
+    $('.home-button').addClass('current');
+    $('header').removeClass('hidden');
+    $('.about-button').removeClass('current');
+    $('.browse-beers-button').removeClass('current');
+    $('.error').html('');
+    $('.cards').html('');
+    $('.search-result').html('');
+    $('.about').html('');
+  });
+}
+
+function watchAboutButtonClick() {
+  $('.about-button').on('click', function() {
+    $('.about-button').addClass('current');
+    $('.home-button').removeClass('current');
+    $('.browse-beers-button').removeClass('current');
+    $('header').addClass('hidden');
+    $('.error').html('');
+    $('.cards').html('');
+    $('.search-result').html('');
+
+    $('.about').html(`
+      <h1>This is the About Page</h1>
+    `);
   });
 }
 
@@ -415,6 +462,7 @@ function addEventListeners() {
   watchEditFormCancel();
   watchDeleteButtonClick();
   watchLogoAndHome();
+  watchAboutButtonClick();
 }
 
 $(addEventListeners);
