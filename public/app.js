@@ -8,7 +8,7 @@ function retrieveSelectBeerJSON(beerSearchName, callback) {
   $.getJSON(API_URL + `/beername/${beerSearchName}`, callback)
     .fail(
       $('.search-result').html(`
-        <h2>Could Not Find Searched Beer.</h2>
+        <h2>Sorry, we couldn't find that beer.</h2>
       `)
     );
 }
@@ -29,6 +29,7 @@ function displayMainPageBeer(data) {
   $('.error').html('');
   $('header').addClass('hidden');
   $('.about').html('');
+  $('.main-area').removeClass('hidden');
 
   if ($('.cards').is(':empty')) {
     $('.search-result').html('');
@@ -55,9 +56,13 @@ function displayMainPageBeer(data) {
       );
     }
 
-    $('.cards').append(
-      `<a href="add.html"><button id="add-beer-button">Add Beer</button></a>`
-    );
+    $('.cards').append(`
+      <footer class="beers-footer">
+        <div class="beers-footer-text">
+          <a href="add.html"><button id="add-beer-button">Add Beer</button></a>
+        </div>
+      </footer>
+    `);
   }
   else if ($('.search-result').html() !== "") {
     $('.search-result').html('');
@@ -85,9 +90,13 @@ function displayMainPageBeer(data) {
       );
     }
 
-    $('.cards').append(
-      `<a href="add.html"><button id="add-beer-button">Add Beer</button></a>`
-    );
+    $('.cards').append(`
+      <footer class="beers-footer">
+        <div class="footer-text">
+          <a href="add.html"><button id="add-beer-button">Add Beer</button></a>
+        </div>
+      </footer>
+      `);
   }
 }
 
@@ -166,6 +175,7 @@ function watchBrowseBeersButtonClick() {
     $('.home-button').removeClass('current');
     $('.browse-beers-button').addClass('current');
     $('.about-button').removeClass('current');
+    $('.main-footer').addClass('hidden');
 
     retrieveAllBeerJSON(displayMainPageBeer);
   });
@@ -179,6 +189,7 @@ function watchSearchSubmit() {
     const searchTerm = (searchTarget.val());
 
     $('.search-result').html('');
+    $('.main-area').removeClass('hidden');
     $('.cards').html('');
     $('.error').html('');
     $('.about').html('');
@@ -187,10 +198,11 @@ function watchSearchSubmit() {
     $('.home-button').removeClass('current');
     $('.browse-beers-button').removeClass('current');
     $('.about-button').removeClass('current');
+    $('.main-footer').removeClass('hidden');
 
     if (searchTerm === "") {
       $('.error').html(`
-        <h2>Please Enter Something into the Field.</h2>
+        <h2>Please enter a beer name into the search bar.</h2>
         `);
       return;
     }
@@ -209,6 +221,7 @@ function watchSelectionSelect() {
     $('.home-button').removeClass('current');
     $('.browse-beers-button').removeClass('current');
     $('.about-button').removeClass('current');
+    $('.main-footer').removeClass('hidden');
 
     retrieveSelectBeerJSON(beerName, displaySearchedBeerInformation);
   })
@@ -265,6 +278,9 @@ function watchAddFormSubmit() {
 
 function watchAddedBeer() {
   if (window.location.hash) {
+    $('.home-button').removeClass('current');
+    $('header').addClass('hidden');
+
     displayAddedBeer(window.location.hash.substr(1));
     history.pushState("", document.title, window.location.pathname);
   }
@@ -279,6 +295,14 @@ function watchAddFormCancel() {
     event.preventDefault();
 
     document.location.href = '/';
+
+    $('.browse-beers-button, .enter-button').on('click', function(event) {
+      $('.home-button').removeClass('current');
+      $('.browse-beers-button').addClass('current');
+      $('.about-button').removeClass('current');
+
+      retrieveAllBeerJSON(displayMainPageBeer);
+    });
   });
 }
 
@@ -417,7 +441,7 @@ function watchDeleteButtonClick() {
 }
 
 function displayDeletedBeer(beerName) {
-  $('.search-result').html(`${beerName} has been deleted!`)
+  $('.search-result').html(`<h2>${beerName} has been deleted!</h2>`)
 }
 
 function watchLogoAndHome() {
@@ -430,6 +454,8 @@ function watchLogoAndHome() {
     $('.cards').html('');
     $('.search-result').html('');
     $('.about').html('');
+    $('.main-footer').removeClass('hidden');
+    $('.main-area').addClass('hidden');
   });
 }
 
@@ -442,9 +468,29 @@ function watchAboutButtonClick() {
     $('.error').html('');
     $('.cards').html('');
     $('.search-result').html('');
+    $('.main-footer').removeClass('hidden');
+    $('.main-area').removeClass('hidden');
 
     $('.about').html(`
-      <h1>This is the About Page</h1>
+      <div class="about-container">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>The Beer Index Application was first developed in early 2018 by Brian Pham through the use of the listed technologies.</p>
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript & jQuery</li>
+            <li>Node & Express</li>
+            <li>MongoDB/Mongoose</li>
+            <li>Mocha & Chai Testing</li>
+          </ul>
+          <br>
+          <p>The mission of Beer Index is to provide a reliable resource for those looking for information about their favorite beers. We all love ourselves a cold beer from time to time, so we created an application to make it easier for those looking to narrow down their search for the perfect brew.</p>
+        </div>
+        <div class="about-image">
+          <img src="http://yardsbrewing.com/assets/img/cheers-sketch.png">
+        </div>
+      </div>
     `);
   });
 }
