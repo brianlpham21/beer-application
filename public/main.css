@@ -465,6 +465,10 @@ img.beer-photo {
   z-index: 10
 }
 
+.search-beer-url {
+  width: 50%
+}
+
 .enter-button:hover {
   color: white;
   cursor: pointer
