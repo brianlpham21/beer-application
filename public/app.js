@@ -8,7 +8,7 @@ function retrieveSelectBeerJSON(beerSearchName, callback) {
   $.getJSON(API_URL + `/beername/${beerSearchName}`, callback)
     .fail(
       $('.search-result').html(`
-        <h2>Sorry, we couldn't find that beer.</h2>
+        <h2 class="error">Sorry, we couldn't find that beer.</h2>
       `)
     );
 }

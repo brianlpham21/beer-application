@@ -196,9 +196,10 @@ footer h3 {
 
 .beer-search-result {
   background-color: white;
-  height: 500px;
+  height: 100%;
   border: 2px solid white;
-  border-radius: 30px
+  border-radius: 30px;
+  overflow: auto
 }
 
 .beer-search-result-text {
@@ -215,7 +216,7 @@ footer h3 {
   margin: 20px 5px 0 0
 }
 
-.beer-search-result, .edit-form, .add-form {
+.edit-form, .add-form {
   padding: 20px 0 0 0;
 }
 
@@ -389,7 +390,7 @@ img.beer-photo {
 
   #logo img {
     height: 90px;
-    padding: 10px 5px 10px 20px;
+    padding: 10px 5px 10px 0;
   }
 
   #logo h1 {
@@ -412,7 +413,17 @@ img.beer-photo {
 
   .centered {
     position: relative;
-    top: -50px
+    top: -60px;
+  }
+
+  .error h2 {
+    font-size: 30px;
+    padding: 0 40px;
+  }
+
+  .error {
+    font-size: 30px;
+    padding: 0 40px;
   }
 }
 
@@ -420,6 +431,16 @@ img.beer-photo {
   nav {
     position: static;
     height: 200px
+  }
+
+  .error h2 {
+    font-size: 30px;
+    padding: 0 25px;
+  }
+
+  .error {
+    font-size: 28px;
+    padding: 0 25px;
   }
 
   header img {
@@ -436,6 +457,15 @@ img.beer-photo {
     top: 20px;
   }
 
+  .header-title {
+    font-size: 50px
+  }
+
+  .header-description {
+    font-size: 18px;
+    line-height: 25px
+  }
+
   #logo {
     display: block;
     text-align: center;
@@ -444,18 +474,39 @@ img.beer-photo {
   }
 
   #logo img {
-    height: 80px;
-    padding: 10px 5px 10px 20px;
+    height: 70px;
+    padding: 10px 5px 10px 0;
   }
 
   #logo h1 {
     font-family: 'Lobster', cursive;
-    font-size: 60px
+    font-size: 55px
   }
 
   .centered {
     position: relative;
     top: -70px
+  }
+
+  .home-screen-buttons * {
+    padding: 5px 20px
+  }
+
+  #nav-container {
+    text-align: center
+  }
+
+  .nav-right {
+    float: none;
+    margin: auto;
+  }
+
+  #get-beer-button {
+    margin-right: 2px
+  }
+
+  .search * {
+    font-size: 20px
   }
 }
 
