@@ -160,8 +160,8 @@ function displaySearchedBeerInformation(data) {
         <p><strong>Availability:</strong> <span class='search-beer-availability'>${allVariables[6]}</span></p>
         <p><strong>Notes:</strong> <span class='search-beer-notes'>${allVariables[7]}</span></p>
         <p hidden>ID: <span class='search-beer-id'>${allVariables[8]}</span></p>
-        <button class="edit-button">Edit</button>
         <button class="delete-button">Delete</button>
+        <button class="edit-button">Edit</button>
       </div>
     </div>`
   );
