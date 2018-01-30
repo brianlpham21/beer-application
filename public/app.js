@@ -327,7 +327,7 @@ function watchEditButtonClick() {
           <input type="text" id="edit-beer-type" placeholder="Beer Type" value="${allVariables[1]}" size="50" required><br>
           <input type="text" id="edit-brewery-name" placeholder="Brewery Name" value="${allVariables[2]}" size="50" required><br>
           <input type="text" id="edit-brewery-city" placeholder="Brewery Location - City" value="${allVariables[3]}" size="50" required><br>
-          <input type="text" id="edit-brewery-state" placeholder="Brewery Location - State" value="${allVariables[4]}" size="50" required><br>
+          <input type="text" id="edit-brewery-state" placeholder="Brewery Location - State/Province/Region" value="${allVariables[4]}" size="50" required><br>
           <input type="text" id="edit-beer-abv" placeholder="Beer ABV (Number Only)" value="${allVariables[5]}" size="23"><br>
           <input type="text" id="edit-beer-ibu" placeholder="Beer IBU" value="${allVariables[6]}"><br>
           <input type="text" id="edit-beer-availability" placeholder="Beer Availability" value="${allVariables[7]}" size="50"><br>
