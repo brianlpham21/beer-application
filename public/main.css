@@ -59,7 +59,7 @@ main {
   text-shadow: 0 0 1px white
 }
 
-#logo:hover, #get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
+#logo:hover, #get-beer-button:hover, #add-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
   cursor: pointer;
 }
 
@@ -75,18 +75,7 @@ main {
   padding: 6px 10px;
 }
 
-#add-beer-button {
-  float: right;
-  padding: 6px 10px;
-  font-size: 20px;
-  border-radius: 5px;
-  margin-right: 40px;
-  position: relative;
-  top: 20px;
-  right: 120px
-}
-
-#get-beer-button:hover, #add-beer-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
+#get-beer-button:hover, #add-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
  background-color: #ffe97a;
 }
 
@@ -123,6 +112,23 @@ main {
   padding: 50px 40px
 }
 
+.beers-header {
+  margin: auto;
+  max-width: 1100px;
+}
+
+.beers-header-container {
+  background-color: lightGrey;
+  width: 100%;
+  position: relative;
+  top: 70px
+}
+
+.beers-header-text {
+  padding: 30px 50px;
+
+}
+
 header {
   position: relative;
   top: 70px;
@@ -150,6 +156,19 @@ html, body {
   height:80px;   /* Height of the footer */
   background:#999;
   text-align: center;
+}
+
+#add-button {
+  float: right;
+  padding: 6px 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  margin: 20px 40px 0 0;
+  background-color: #BBB
+}
+
+.beers-header-text {
+  overflow: auto
 }
 
 .footer-text, .beers-footer-text {
@@ -203,7 +222,7 @@ footer h3 {
 }
 
 .beer-search-result-text {
-  padding: 15px 20px 0 0
+  padding: 15px 20px
 }
 
 .beer-search-result img {
@@ -213,7 +232,7 @@ footer h3 {
 
 .edit-button, .delete-button {
   float: right;
-  margin: 20px 10px 0 0
+  margin: 20px 10px 20px 0
 }
 
 .delete-button {
@@ -429,12 +448,28 @@ img.beer-photo {
     font-size: 30px;
     padding: 0 40px;
   }
+
+  .beers-header-container {
+    position: static;
+  }
+
+  #add-beer-container {
+    padding-left: 80px
+  }
+
+  .main-area {
+    padding-bottom: 0
+  }
 }
 
 @media only screen and (max-width: 580px) {
   nav {
     position: static;
     height: 200px
+  }
+
+  .main-area {
+    padding-bottom: 0;
   }
 
   .error h2 {
@@ -457,7 +492,7 @@ img.beer-photo {
 
   .header-text {
     width: 100%;
-    padding: 0 20px;
+    padding: 0 30px;
     top: 20px;
   }
 
@@ -489,7 +524,7 @@ img.beer-photo {
 
   .centered {
     position: relative;
-    top: -70px
+    top: -85px
   }
 
   .home-screen-buttons * {
@@ -512,6 +547,39 @@ img.beer-photo {
   .search * {
     font-size: 20px
   }
+
+  .about-container {
+    padding: 30px
+  }
+
+  .about-text {
+    width: 100%;
+
+  }
+
+  .about-image {
+    display: none
+  }
+
+  .beers-header-container {
+    position: static;
+  }
+
+  .beers-header-text {
+    padding: 30px
+  }
+
+  .search-beer-name {
+    font-size: 1.5em
+  }
+
+  .edit-form {
+    padding-top: 0
+  }
+
+  textarea {
+    height: 4em
+  }
 }
 
 .enter-button {
@@ -525,6 +593,6 @@ img.beer-photo {
 }
 
 .enter-button:hover {
-  color: white;
+  color: lightBlue;
   cursor: pointer
 }
