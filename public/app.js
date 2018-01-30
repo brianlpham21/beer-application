@@ -164,9 +164,9 @@ function displaySearchedBeerInformation(data) {
 }
 
 function watchBrowseBeersButtonClick() {
-  $('.browse-beers-button, .enter-button').on('click', function(event) {
+  $('.browse-button, .enter-button').on('click', function(event) {
     $('.home-button').removeClass('current');
-    $('.browse-beers-button').addClass('current');
+    $('.browse-button').addClass('current');
     $('.about-button').removeClass('current');
     $('.main-footer').addClass('hidden');
 
@@ -190,7 +190,7 @@ function watchSearchSubmit() {
     $('.beers-header').addClass('hidden');
 
     $('.home-button').removeClass('current');
-    $('.browse-beers-button').removeClass('current');
+    $('.browse-button').removeClass('current');
     $('.about-button').removeClass('current');
     $('.main-footer').removeClass('hidden');
 
@@ -213,7 +213,7 @@ function watchSelectionSelect() {
   $('.cards').on('click', '.beer-selection-result-name', function(event) {
     const beerName = $(event.currentTarget).find('.card-content-beer-name').html();
     $('.home-button').removeClass('current');
-    $('.browse-beers-button').removeClass('current');
+    $('.browse-button').removeClass('current');
     $('.about-button').removeClass('current');
     $('.main-footer').removeClass('hidden');
     $('.beers-header').addClass('hidden');
@@ -438,7 +438,7 @@ function watchLogoAndHome() {
     $('.home-button').addClass('current');
     $('header').removeClass('hidden');
     $('.about-button').removeClass('current');
-    $('.browse-beers-button').removeClass('current');
+    $('.browse-button').removeClass('current');
     $('.error').html('');
     $('.cards').html('');
     $('.search-result').html('');
@@ -453,7 +453,7 @@ function watchAboutButtonClick() {
   $('.about-button').on('click', function() {
     $('.about-button').addClass('current');
     $('.home-button').removeClass('current');
-    $('.browse-beers-button').removeClass('current');
+    $('.browse-button').removeClass('current');
     $('header').addClass('hidden');
     $('.error').html('');
     $('.cards').html('');

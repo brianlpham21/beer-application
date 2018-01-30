@@ -3,12 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Beer Information | Home Page</title>
+    
+    <title>Beer Index | Home Page</title>
+
     <link href="main.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="beer-mug.png">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Lobster" rel="stylesheet">
   </head>
   <body>
+
+    <!-- top navigation bar -->
+
     <nav>
       <div id="nav-container">
         <a href="#" id="logo">
@@ -16,13 +21,13 @@
           <h1>BeerIndex</h1>
         </a>
 
-        <div class="home-screen-buttons">
+        <div id="nav-buttons">
           <a href="#" class="home-button current">Home</a>
-          <a href="#" class="browse-beers-button">Beers</a>
+          <a href="#" class="browse-button">Beers</a>
           <a href="#" class="about-button">About</a>
         </div>
 
-        <div class="nav-right">
+        <div id="nav-search-bar">
           <form class="search" action="#">
             <input type="text" placeholder="Search Beer Name..." autofocus>
             <button type="submit" id="get-beer-button">Get Beer</button>
@@ -31,23 +36,31 @@
       </div>
     </nav>
 
+    <!-- home page content -->
+
     <header>
       <div class="header-container">
         <div class="header-text">
           <h1 class="header-title">Welcome!</h1>
           <p class="header-description">This is Beer Index, your ultimate resource for key beer information around the world. Explore the beers we have in our library through the 'Beers' Tab in the navigation. You can also try searching for specific beers in our search bar as well. If the beer you're looking for isn't in our system, go ahead and add it!
-          </p>
-          <br>
-          <p class="header-description">...now go explore the world of beer!</p>
+          <br><br>
+          ...now go explore the world of beer!</p>
           <br>
           <a href="#" class="enter-button">Enter</a>
-
         </div>
         <div class="header-image">
           <img src="http://res.cloudinary.com/sagacity/image/upload/c_crop,h_762,w_800,x_0,y_53/c_scale,w_640/v1409004808/hop_jrhavy.png" alt="main-photo-hop">
         </div>
       </div>
     </header>
+
+    <footer class="main-footer">
+      <div class="footer-text">
+        <h3>&copy; 2018 Brian Pham</h3>
+      </div>
+    </footer>
+
+    <!-- beer library header content -->
 
     <section class="beers-header-container">
       <div class="beers-header hidden">
@@ -59,20 +72,16 @@
       </div>
     </section>
 
+    <!-- dynamic content (library, search, about & error) -->
+
     <main class="main-area hidden">
       <div class="centered">
-        <section class="error"></section>
         <section class="cards"></section>
         <section class="search-result"></section>
         <section class="about"></section>
+        <section class="error"></section>
       </div>
     </main>
-
-    <footer class="main-footer">
-      <div class="footer-text">
-        <h3>&copy; 2018 Brian Pham</h3>
-      </div>
-    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
