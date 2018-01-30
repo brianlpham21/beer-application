@@ -222,7 +222,7 @@ footer h3 {
 }
 
 .beer-search-result-text {
-  padding: 15px 20px
+  padding: 30px 20px
 }
 
 .beer-search-result img {
@@ -567,6 +567,10 @@ img.beer-photo {
 
   .beers-header-text {
     padding: 30px
+  }
+
+  .beer-search-result-text {
+    padding: 20px
   }
 
   .search-beer-name {
