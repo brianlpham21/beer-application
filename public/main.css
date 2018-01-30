@@ -586,7 +586,6 @@ img.beer-photo {
 
 
 
-
 #logo:hover, #get-beer-button:hover, #add-button:hover, .edit-button:hover, .delete-button:hover, .edit-form-submit:hover, .edit-form-cancel:hover, .add-form-submit:hover, .add-form-cancel:hover {
   cursor: pointer;
 }
