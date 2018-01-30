@@ -70,21 +70,7 @@ describe('Beer API Resource', function() {
   });
 
   describe('GET Endpoint', function() {
-    it('should return existing beers', function() {
-      let res;
-
-      return chai.request(app)
-        .get('/beers')
-        .then(function(_res) {
-          res = _res;
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res).to.be.a('object');
-          expect(res.body.beers).to.have.length.of.at.least(1);
-        });
-    });
-
-    it('should return beers with right fields', function() {
+    it('should return all beers', function() {
       let resBeer;
       return chai.request(app)
         .get('/beers')
@@ -92,7 +78,7 @@ describe('Beer API Resource', function() {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body.beers).to.be.a('array');
-          expect(res.body.beers).to.have.length.of.at.least(1);
+          expect(res.body.beers).to.have.length(5);
 
           res.body.beers.forEach(function(beer) {
             expect(beer).to.be.a('object');
@@ -107,6 +93,29 @@ describe('Beer API Resource', function() {
           expect(resBeer.beerName).to.equal(beer.beerName);
           expect(resBeer.beerType).to.equal(beer.beerType);
           expect(resBeer.breweryName).to.equal(beer.breweryName);
+        });
+    });
+
+    it('should return a beer based on name', function() {
+      let resBeer;
+
+      return Beer
+        .findOne()
+        .then(function(beer) {
+          return chai.request(app)
+            .get(`/beers/beername/${beer.beerName}`)
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          resBeer = res.body;
+          return Beer.findOne({'beerName': res.body.beerName})
+        })
+        .then(function(beer) {
+          expect(beer.beerName).to.equal(resBeer.beerName);
+          expect(beer.beerType).to.equal(resBeer.beerType);
+          expect(beer.breweryName).to.equal(resBeer.breweryName);
+          expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.city);
+          expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.state);
         });
     });
   });
