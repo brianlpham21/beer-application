@@ -337,8 +337,17 @@ footer h3 {
 }
 
 .beers-header-text {
-  padding: 30px 50px;
+  padding: 20px 50px 20px 50px;
   overflow: auto
+}
+
+#add-button {
+  float: right;
+  padding: 6px 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  margin: 20px 40px 0 0;
+  background-color: #BBB
 }
 
 @media only screen and (min-width: 581px) and (max-width: 830px) {
@@ -353,7 +362,11 @@ footer h3 {
   }
 
   .beers-header-text {
-    padding: 30px
+    padding: 20px 30px 20px 30px
+  }
+
+  #add-button {
+    margin: 15px 20px 0 0
   }
 }
 
@@ -429,15 +442,6 @@ img.beer-photo {
 
 /* beer library styling */
 
-#add-button {
-  float: right;
-  padding: 6px 10px;
-  font-size: 20px;
-  border-radius: 5px;
-  margin: 20px 40px 0 0;
-  background-color: #BBB
-}
-
 @media only screen and (min-width: 581px) and (max-width: 830px) {
 
 }
@@ -476,7 +480,9 @@ img.beer-photo {
 
 .edit-button {
   margin-right: 5px;
-  padding: 8px 15px
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 .delete-button {
@@ -605,7 +611,7 @@ form * {
   padding: 20px 0 0 0;
 }
 
-.edit-button, .delete-button, .edit-form-submit, .edit-form-cancel, .add-form-submit, .add-form-cancel  {
+.delete-button, .edit-form-submit, .edit-form-cancel, .add-form-submit, .add-form-cancel  {
   border-radius: 5px;
   font-size: 20px;
   padding: 8px;

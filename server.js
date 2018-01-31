@@ -22,16 +22,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-// the following are the endpoints that are accessed through the API.
-// these endpoints will return a given response depending on the operation
-// and the request
-
 // this GET endpoint will return a certain number of beers in the database
 
-app.get('/beers', (req, res) => {
+app.get('/beers', function(req, res) {
   Beer
-    .find()
-    .sort({ 'beerName' : 1})
+    .find(req.query)
+    .sort({'beerName': 1})
     .then(beers => {
       res.json({
         beers: beers.map(
@@ -39,60 +35,6 @@ app.get('/beers', (req, res) => {
         )
       });
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Internal server error'});
-    });
-});
-
-// this GET endpoint will return a selected beer when the beer name or ID is given by the user
-
-app.get('/beers/beername/:beerName', (req, res) => {
-  Beer
-    .findOne({'beerName': {$regex: `${req.params.beerName}`}})
-    .then(beer => res.json(beer.serialize()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Interal server error'});
-    });
-});
-
-app.get('/beers/beertype/:beerType', (req, res) => {
-  Beer
-    .find({'beerType': req.params.beerType})
-    .then(beers => {
-      res.json({
-        beers: beers.map(
-          (beer) => beer.serialize()
-        )
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Interal server error'});
-    });
-});
-
-app.get('/beers/breweryname/:breweryName', (req, res) => {
-  Beer
-    .find({'breweryName': req.params.breweryName})
-    .then(beers => {
-      res.json({
-        beers: beers.map(
-          (beer) => beer.serialize()
-        )
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: 'Interal server error'});
-    });
-});
-
-app.get('/beers/:id', (req, res) => {
-  Beer
-    .findById(req.params.id)
-    .then(beer => res.json(beer.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({message: 'Interal server error'});
