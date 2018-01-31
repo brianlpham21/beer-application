@@ -96,28 +96,28 @@ describe('Beer API Resource', function() {
         });
     });
 
-    it('should return a beer based on name', function() {
-      let resBeer;
-
-      return Beer
-        .findOne()
-        .then(function(beer) {
-          return chai.request(app)
-            .get(`/beers/beername/${beer.beerName}`)
-        })
-        .then(function(res) {
-          expect(res).to.have.status(200);
-          resBeer = res.body;
-          return Beer.findOne({'beerName': res.body.beerName})
-        })
-        .then(function(beer) {
-          expect(beer.beerName).to.equal(resBeer.beerName);
-          expect(beer.beerType).to.equal(resBeer.beerType);
-          expect(beer.breweryName).to.equal(resBeer.breweryName);
-          expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.city);
-          expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.state);
-        });
-    });
+    // it('should return a beer based on name', function() {
+    //   let resBeer;
+    //
+    //   return Beer
+    //     .findOne()
+    //     .then(function(beer) {
+    //       return chai.request(app)
+    //         .get(`/beers/beername/${beer.beerName}`)
+    //     })
+    //     .then(function(res) {
+    //       expect(res).to.have.status(200);
+    //       resBeer = res.body;
+    //       return Beer.findOne({'beerName': res.body.beerName})
+    //     })
+    //     .then(function(beer) {
+    //       expect(beer.beerName).to.equal(resBeer.beerName);
+    //       expect(beer.beerType).to.equal(resBeer.beerType);
+    //       expect(beer.breweryName).to.equal(resBeer.breweryName);
+    //       expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.city);
+    //       expect(resBeer.breweryLocation).to.contain(beer.breweryLocation.state);
+    //     });
+    // });
   });
 
   describe('POST Endpoint', function() {
