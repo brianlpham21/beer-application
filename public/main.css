@@ -196,6 +196,7 @@ nav {
 header {
   position: relative;
   top: 70px;
+  height: 200px
 }
 
 .header-container {
@@ -337,7 +338,7 @@ footer h3 {
 }
 
 .beers-header-text {
-  padding: 20px 50px 20px 50px;
+  padding: 30px 50px 20px 50px;
   overflow: auto
 }
 
@@ -362,7 +363,7 @@ footer h3 {
   }
 
   .beers-header-text {
-    padding: 20px 30px 20px 30px
+    padding: 20px 30px;
   }
 
   #add-button {
