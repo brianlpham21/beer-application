@@ -10,6 +10,16 @@ function retrieveSelectBeerJSON(beerSearchObject, callback) {
   $.getJSON(requestURL, callback)
 }
 
+function watchBrowseBeersButtonClick() {
+  $('.browse-button, .enter-button').on('click', function(event) {
+    $('.home-button, .about-button').removeClass('current');
+    $('.browse-button').addClass('current');
+    $('.main-footer').addClass('hidden');
+
+    retrieveSelectBeerJSON({}, displayMainPageBeer);
+  });
+}
+
 function displayMainPageBeer(data) {
   $('header').addClass('hidden');
   $('.beers-header').removeClass('hidden');
@@ -17,72 +27,86 @@ function displayMainPageBeer(data) {
   if ($('.cards').is(':empty')) {
     $('.search-result').html('');
 
-    for (index in data.beers) {
-      const Beer = {
-        beerName: data.beers[index].beerName || '',
-        beerType: data.beers[index].beerType || '',
-        breweryName: data.beers[index].breweryName || '',
-        breweryLocation: data.beers[index].breweryLocation || '',
-        beerABV: data.beers[index].beerABV || '',
-        beerIBU: data.beers[index].beerIBU || '',
-        beerAvailability: data.beers[index].beerAvailability || '',
-        beerNotes: data.beers[index].beerNotes || '',
-        id: data.beers[index].id || '',
-        beerURL: data.beers[index].beerURL || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
-      }
-
-      $('.cards').append(
-        `<article class="card beer-selection-result-name">
-          <a href="#">
-            <figure class="thumbnail">
-            <img src="${Beer.beerURL}" alt="beer-photo" class="beer-photo">
-            </figure>
-            <div class="card-content">
-              <h2 class="card-content-beer-name">${Beer.beerName}</h2>
-              <p>${Beer.beerType}</p>
-              <p>${Beer.breweryName}</p>
-              <p>${Beer.breweryLocation}</p>
-            </div>
-          </a>
-        </article>`
-      );
-    }
+    displayHtmlForMainPageBeer(data);
   }
   else if ($('.search-result').html() !== "") {
     $('.search-result').html('');
     $('.cards').html('');
 
-    for (index in data.beers) {
-      const Beer = {
-        beerName: data.beers[index].beerName || '',
-        beerType: data.beers[index].beerType || '',
-        breweryName: data.beers[index].breweryName || '',
-        breweryLocation: data.beers[index].breweryLocation || '',
-        beerABV: data.beers[index].beerABV || '',
-        beerIBU: data.beers[index].beerIBU || '',
-        beerAvailability: data.beers[index].beerAvailability || '',
-        beerNotes: data.beers[index].beerNotes || '',
-        id: data.beers[index].id || '',
-        beerURL: data.beers[index].beerURL || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
-      }
-
-      $('.cards').append(
-        `<article class="card beer-selection-result-name">
-          <a href="#">
-            <figure class="thumbnail">
-            <img src="${Beer.beerURL}" alt="beer-photo" class="beer-photo">
-            </figure>
-            <div class="card-content">
-              <h2 class="card-content-beer-name">${Beer.beerName}</h2>
-              <p>${Beer.beerType}</p>
-              <p>${Beer.breweryName}</p>
-              <p>${Beer.breweryLocation}</p>
-            </div>
-          </a>
-        </article>`
-      );
-    }
+    displayHtmlForMainPageBeer(data)
   }
+}
+
+function displayHtmlForMainPageBeer(data) {
+  for (index in data.beers) {
+    const Beer = {
+      beerName: data.beers[index].beerName || '',
+      beerType: data.beers[index].beerType || '',
+      breweryName: data.beers[index].breweryName || '',
+      breweryLocation: data.beers[index].breweryLocation || '',
+      beerABV: data.beers[index].beerABV || '',
+      beerIBU: data.beers[index].beerIBU || '',
+      beerAvailability: data.beers[index].beerAvailability || '',
+      beerNotes: data.beers[index].beerNotes || '',
+      id: data.beers[index].id || '',
+      beerURL: data.beers[index].beerURL || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
+    }
+
+    $('.cards').append(
+      `<article class="card beer-selection-result-name">
+        <a href="#">
+          <figure class="thumbnail">
+          <img src="${Beer.beerURL}" alt="beer-photo" class="beer-photo">
+          </figure>
+          <div class="card-content">
+            <h2 class="card-content-beer-name">${Beer.beerName}</h2>
+            <p>${Beer.beerType}</p>
+            <p>${Beer.breweryName}</p>
+            <p>${Beer.breweryLocation}</p>
+          </div>
+        </a>
+      </article>`
+    );
+  }
+}
+
+function watchSearchSubmit() {
+  $('.search').on('submit', function(event) {
+    event.preventDefault();
+
+    const searchTarget = $(event.currentTarget).find('input');
+    const searchTerm = (searchTarget.val());
+
+    $('.main-footer').removeClass('hidden');
+    $('.search-result, .cards').html('');
+    $('header, .beers-header').addClass('hidden');
+    $('.home-button, .browse-button, .about-button').removeClass('current');
+
+    if (searchTerm === '') {
+      $('.search-result').html(`
+        <h2>Please enter a beer name into the search bar.</h2>
+        `);
+      return;
+    }
+
+    const searchTermFinal = searchTerm.trim().split(' ').map(word => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ');
+    const searchObject = {beerName: searchTermFinal};
+    retrieveSelectBeerJSON(searchObject, displaySearchedBeerInformation);
+
+    searchTarget.val('');
+  });
+}
+
+function watchSelectionSelect() {
+  $('.cards').on('click', '.beer-selection-result-name', function(event) {
+    $('.home-button, .browse-button, .about-button').removeClass('current');
+    $('.main-footer').removeClass('hidden');
+    $('.beers-header').addClass('hidden');
+
+    const selectedBeerName = $(event.currentTarget).find('.card-content-beer-name').html();
+    const searchObject = {beerName: selectedBeerName};
+    retrieveSelectBeerJSON(searchObject, displaySearchedBeerInformation);
+  })
 }
 
 function displaySearchedBeerInformation(data) {
@@ -126,55 +150,6 @@ function displaySearchedBeerInformation(data) {
   }
 }
 
-function watchBrowseBeersButtonClick() {
-  $('.browse-button, .enter-button').on('click', function(event) {
-    $('.home-button, .about-button').removeClass('current');
-    $('.browse-button').addClass('current');
-    $('.main-footer').addClass('hidden');
-
-    retrieveSelectBeerJSON({}, displayMainPageBeer);
-  });
-}
-
-function watchSearchSubmit() {
-  $('.search').on('submit', function(event) {
-    event.preventDefault();
-
-    const searchTarget = $(event.currentTarget).find('input');
-    const searchTerm = (searchTarget.val());
-
-    $('.main-footer').removeClass('hidden');
-    $('.search-result, .cards').html('');
-    $('header, .beers-header').addClass('hidden');
-    $('.home-button, .browse-button, .about-button').removeClass('current');
-
-    if (searchTerm === '') {
-      $('.search-result').html(`
-        <h2>Please enter a beer name into the search bar.</h2>
-        `);
-      return;
-    }
-
-    const searchTermFinal = searchTerm.trim().split(' ').map(word => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ');
-    const searchObject = {beerName: searchTermFinal};
-    retrieveSelectBeerJSON(searchObject, displaySearchedBeerInformation);
-
-    searchTarget.val('');
-  });
-}
-
-function watchSelectionSelect() {
-  $('.cards').on('click', '.beer-selection-result-name', function(event) {
-    $('.home-button, .browse-button, .about-button').removeClass('current');
-    $('.main-footer').removeClass('hidden');
-    $('.beers-header').addClass('hidden');
-
-    const selectedBeerName = $(event.currentTarget).find('.card-content-beer-name').html();
-    const searchObject = {beerName: selectedBeerName};
-    retrieveSelectBeerJSON(searchObject, displaySearchedBeerInformation);
-  })
-}
-
 function watchAddFormSubmit() {
   $('.add-form').on('submit', function(event) {
     event.preventDefault();
@@ -211,7 +186,7 @@ function watchAddFormSubmit() {
       data: JSON.stringify(objectPost),
       error: function(e) {
         console.log(e);
-        alert('Beer Not Added! Beer Name Already in Database!')
+        alert('Error! Beer Not Added!')
       },
       dataType: "json",
       contentType: "application/json",
@@ -337,7 +312,7 @@ function watchEditFormSubmit() {
       data: JSON.stringify(objectPost),
       error: function(e) {
         console.log(e);
-        alert('Beer Not Added! Beer Name Already in Database!')
+        alert('Error! Beer Not Added!')
       },
       dataType: 'json',
       contentType: "application/json",

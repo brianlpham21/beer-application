@@ -311,12 +311,18 @@ footer h3 {
   padding: 50px 40px
 }
 
+.add-form {
+  padding: 20px 0 0 0;
+}
+
 .add-form-submit, .add-form-cancel {
   margin-top: 20px
 }
 
 @media only screen and (min-width: 581px) and (max-width: 830px) {
-
+  #add-beer-container {
+    padding-left: 80px
+  }
 }
 
 @media only screen and (max-width: 580px) {
@@ -608,7 +614,7 @@ form * {
   margin: 3px 0 3px 0;
 }
 
-.edit-form, .add-form {
+.edit-form {
   padding: 20px 0 0 0;
 }
 
@@ -622,6 +628,8 @@ form * {
   cursor: pointer;
   color: purple;
 }
+
+
 
 @media screen and (min-width: 52em) {
     .centered {
@@ -653,12 +661,6 @@ form * {
     margin-bottom: 2em;
     display: flex;
     flex: 0 1 calc(33% - 0.5em);
-  }
-}
-
-@media only screen and (min-width: 581px) and (max-width: 830px) {
-  #add-beer-container {
-    padding-left: 80px
   }
 }
 
