@@ -326,7 +326,9 @@ footer h3 {
 }
 
 @media only screen and (max-width: 580px) {
-
+  #add-beer-container input, #add-beer-container textarea {
+    width: 250px
+  }
 }
 
 /* beer library header content styling */
@@ -387,7 +389,7 @@ main {
 
 .centered {
     margin: 0 auto;
-    padding: 0 1em;
+    padding: 0 2em;
 }
 
 .card {
@@ -522,7 +524,11 @@ img.beer-photo {
 
 @media only screen and (max-width: 580px) {
   .edit-form {
-    padding-top: 0
+    padding-top: 0;
+  }
+
+  .edit-form input, .edit-form textarea {
+    width: 260px
   }
 }
 
