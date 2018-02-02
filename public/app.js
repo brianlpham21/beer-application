@@ -84,7 +84,7 @@ function watchSearchSubmit() {
 
     if (searchTerm === '') {
       $('.search-result').html(`
-        <h2>Please enter a beer name into the search bar.</h2>
+        <h2 class='empty-error'>Please enter a beer name into the search bar.</h2>
         `);
       return;
     }
