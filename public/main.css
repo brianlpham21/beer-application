@@ -389,7 +389,7 @@ main {
 
 .centered {
     margin: 0 auto;
-    padding: 0 2em;
+    padding: 0 1em;
 }
 
 .card {
@@ -588,6 +588,10 @@ img.beer-photo {
   .error {
     font-size: 30px;
     padding: 0 40px;
+  }
+
+  .empty-error {
+    padding: 0 20px
   }
 }
 
