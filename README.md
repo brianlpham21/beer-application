@@ -7,18 +7,22 @@ Users will use Beer Index to retrieve information about their favorite beers, if
 
 Beer Index is hoping to expand to include authentication that will allow users to sign in and review beers. User reviews will appear on the individual beer pages to show what others have previously and currently rated that select beer.
 
-[Screenshots - Home Page](/screenshots/1.png)
-[Screenshots - Beers Page](/screenshots/2.png)
-[Screenshots - Individual Beer Page](/screenshots/3.png)
-[Screenshots - Edit Page](/screenshots/4.png)
-[Screenshots - About Page](/screenshots/5.png)
+## Screenshots
+
+[Home](/screenshots/1.png)
+[Beers](/screenshots/2.png)
+[Individual_Beer](/screenshots/3.png)
+[Edit](/screenshots/4.png)
+[About](/screenshots/5.png)
 
 ## UX
 
 Initial wireframes and User Flows for the project can be viewed below. The wireframes were created with the user flow and data processing tasks in mind.
 
-[Wireframe 1](/screenshots/WF1.jpg)
-[Wireframe 2](/screenshots/WF2.jpg)
+## Wireframe Images
+
+[Page_1](/screenshots/WF1.jpg)
+[Page_2](/screenshots/WF2.jpg)
 
 ## Live Site
 You can access the Beer Index Application at:  https://stark-woodland-22950.herokuapp.com/
