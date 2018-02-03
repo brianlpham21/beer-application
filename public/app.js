@@ -344,6 +344,7 @@ function watchDeleteButtonClick() {
     event.preventDefault();
 
     const deleteTargetBeerId = $('.search-beer-id').html();
+    const deleteTargetBeerName = $('.search-beer-name').html();
 
     let status = confirm('Are you sure you would like to delete this beer?');
 
