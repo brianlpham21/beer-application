@@ -7,11 +7,7 @@ Users will use Beer Index to retrieve information about their favorite beers, if
 
 Beer Index is hoping to expand to include authentication that will allow users to sign in and review beers. User reviews will appear on the individual beer pages to show what others have previously and currently rated that select beer.
 
-<<<<<<< HEAD
 [Screenshots](/screenshots/1.png)
-=======
-[Screenshots](/screenshots/1)
->>>>>>> eab61183ba90ec156d3038cde74589503cd22496
 
 ## UX
 
