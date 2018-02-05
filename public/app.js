@@ -77,7 +77,7 @@ function watchSearchSubmit() {
     const searchTarget = $(event.currentTarget).find('input');
     const searchTerm = (searchTarget.val());
 
-    $('.main-footer').removeClass('hidden');
+    $('.main-footer').addClass('hidden');
     $('.search-result, .cards').html('');
     $('header, .beers-header').addClass('hidden');
     $('.home-button, .browse-button, .about-button').removeClass('current');
@@ -100,7 +100,6 @@ function watchSearchSubmit() {
 function watchSelectionSelect() {
   $('.cards').on('click', '.beer-selection-result-name', function(event) {
     $('.home-button, .browse-button, .about-button').removeClass('current');
-    $('.main-footer').removeClass('hidden');
     $('.beers-header').addClass('hidden');
 
     const selectedBeerName = $(event.currentTarget).find('.card-content-beer-name').html();
@@ -202,6 +201,7 @@ function watchAddedBeer() {
   if (window.location.hash) {
     $('header').addClass('hidden');
     $('.home-button').removeClass('current');
+    $('.main-footer').addClass('hidden');
 
     displayAddedBeer(window.location.hash.substr(1));
     history.pushState("", document.title, window.location.pathname);

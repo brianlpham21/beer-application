@@ -28,6 +28,12 @@ h2 {
   display: none
 }
 
+@media only screen and (max-width: 319px) {
+  body {
+    min-width: 320px
+  }
+}
+
 /* top navigation bar styling */
 
 nav {
@@ -232,7 +238,8 @@ header {
 
 .enter-button {
   font-size: 25px;
-  color: black;
+  color: #e1ac00;
+  font-weight: bold;
   z-index: 10
 }
 
