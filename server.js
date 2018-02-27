@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
 });
 
 // this GET endpoint will return a certain number of beers in the database
+//
 
 app.get('/beers', function(req, res) {
   Beer
