@@ -9,10 +9,10 @@ Beer Index is hoping to expand to include authentication that will allow users t
 
 ## Screenshots
 
-[Home](/screenshots/1.png)
-[Beers](/screenshots/2.png)
-[Individual_Beer](/screenshots/3.png)
-[Edit](/screenshots/4.png)
+[Home](/screenshots/1.png) <br />
+[Beers](/screenshots/2.png) <br />
+[Individual_Beer](/screenshots/3.png) <br />
+[Edit](/screenshots/4.png) <br />
 [About](/screenshots/5.png)
 
 ## UX
