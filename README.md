@@ -28,5 +28,5 @@ Initial wireframes and User Flows for the project can be viewed below. The wiref
 You can access the Beer Index Application at:  https://stark-woodland-22950.herokuapp.com/
 
 ## Technical
-- This application was built using HTML, CSS, JavaScript, jQuery, NodeJS, Express, Chai & Mocha Testing, and MongoDB & Mongoose.
+- This application was built using HTML, CSS, JavaScript, jQuery, NodeJS, Express, Chai & Mocha Testing, and MongoDB & Mongoose. 
 - The application is fully responsive, available for use on mobile devices, tablets, and desktop viewports.
