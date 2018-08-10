@@ -12,11 +12,25 @@ You can access the Beer Index Application at:  https://stark-woodland-22950.hero
 
 ## Screenshots
 
-[Home](/screenshots/1.png) <br />
-[Beers](/screenshots/2.png) <br />
-[Individual_Beer](/screenshots/3.png) <br />
-[Edit](/screenshots/4.png) <br />
-[About](/screenshots/5.png)
+Home
+
+<img src="/screenshots/1.png" width="70%">
+
+Beers
+
+<img src="/screenshots/2.png" width="70%">
+
+Individual Beer
+
+<img src="/screenshots/3.png" width="70%">
+
+Edit
+
+<img src="/screenshots/4.png" width="70%">
+
+About
+
+<img src="/screenshots/5.png" width="70%">
 
 ## UX
 
