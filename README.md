@@ -7,6 +7,9 @@ Users will use Beer Index to retrieve information about their favorite beers, if
 
 Beer Index is hoping to expand to include authentication that will allow users to sign in and review beers. User reviews will appear on the individual beer pages to show what others have previously and currently rated that select beer.
 
+## Live Site
+You can access the Beer Index Application at:  https://stark-woodland-22950.herokuapp.com/
+
 ## Screenshots
 
 [Home](/screenshots/1.png) <br />
@@ -24,9 +27,6 @@ Initial wireframes and User Flows for the project can be viewed below. The wiref
 [Page_1](/screenshots/WF1.jpg)
 [Page_2](/screenshots/WF2.jpg)
 
-## Live Site
-You can access the Beer Index Application at:  https://stark-woodland-22950.herokuapp.com/
-
 ## Technical
-- This application was built using HTML, CSS, JavaScript, jQuery, NodeJS, Express, Chai & Mocha Testing, and MongoDB & Mongoose. 
+- This application was built using HTML, CSS, JavaScript, jQuery, NodeJS, Express, Chai & Mocha Testing, and MongoDB & Mongoose.
 - The application is fully responsive, available for use on mobile devices, tablets, and desktop viewports.
